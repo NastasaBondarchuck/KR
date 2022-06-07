@@ -11,29 +11,18 @@ namespace KR
     /// </summary>
     public partial class MainWindow
     {
+        public MatrixViewModel ViewModel { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+            ViewModel = new MatrixViewModel();
             //Pointing UI to refer to this class properties
-            DataContext = this;
-            Graph graph = new Graph(AdjMatrix);
+            DataContext = ViewModel;
+            Graph graph = new Graph(ViewModel.Matrix);
             GraphGrid.Children.Add(DrawGraph(graph));
             DrawGraph(graph);
         }
-        //Moved matrix into property for UI's access 
-        public double[,] AdjMatrix => new double[,] {
-                {0, -2, 3, -3},
-                {double.PositiveInfinity, 0, 2, double.PositiveInfinity},
-                {double.PositiveInfinity, double.PositiveInfinity, 0, -3},
-                {4, 5, 5, 0 }
-        };
-        //Property for sizes list
-        public List<int> Sizes => new List<int>() {
-            2,3,4,5
-        };
-        //Property for selected size (updates automaticly)
-        public int SelectedSize { get; set; } = 2;
-
         public static Canvas DrawGraph(Graph graph)
         {
             Canvas GraphField = new Canvas();

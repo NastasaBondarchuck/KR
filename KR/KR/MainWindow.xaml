@@ -6,17 +6,22 @@
         xmlns:local="clr-namespace:KR"
         xmlns:dg2d="clr-namespace:DataGrid2DLibrary;assembly=DataGrid2DLibrary"
         mc:Ignorable="d"
-        Title="MainWindow" Height="850" Width="1300" MinHeight="850" MinWidth="1300">
+        d:DataContext="{d:DesignInstance Type=local:MainWindow, IsDesignTimeCreatable=True}"
+        Title="MainWindow"
+        Height="850"
+        Width="1300"
+        MinHeight="850"
+        MinWidth="1300">
     <Grid Background="#D8BFD8">
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="400"/>
-            <RowDefinition Height="300"/>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="400" />
+            <RowDefinition Height="300" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="500"/>
-                <ColumnDefinition Width="800"/>
+                <ColumnDefinition Width="500" />
+                <ColumnDefinition Width="800" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <TextBlock Text="Adjacency Matrix"
@@ -25,7 +30,7 @@
                            Foreground="DarkSlateBlue"
                            Background="Transparent"
                            VerticalAlignment="Center"
-                           HorizontalAlignment="Center"/>
+                           HorizontalAlignment="Center" />
             </Grid>
             <Grid Grid.Column="1">
                 <TextBlock Text="Graph Visualization"
@@ -34,34 +39,37 @@
                            Foreground="DarkSlateBlue"
                            Background="Transparent"
                            VerticalAlignment="Center"
-                           HorizontalAlignment="Center"/>
+                           HorizontalAlignment="Center" />
             </Grid>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="500"/>
-                <ColumnDefinition Width="800"/>
+                <ColumnDefinition Width="500" />
+                <ColumnDefinition Width="800" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="400"/>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="100" />
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <dg2d:DataGrid2D x:Name="AdjacencyMatrix"
-                                     ItemsSource2D="{Binding Int2DList}"
+                                     ItemsSource2D="{Binding AdjMatrix}"
                                      Height="330"
+                                     FontSize="25"
+                                     FontFamily="Consolas"
                                      Width="330"
                                      ColumnHeaderHeight="0"
-                                     RowHeaderWidth="0"/>
+                                     RowHeaderWidth="0" />
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="200"/>
-                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="200" />
+                        <RowDefinition Height="200" />
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
                         <ComboBox x:Name="ChooseSize"
+                                  VerticalContentAlignment="Center"
                                   Height="50"
                                   Width="100"
                                   FontFamily="Tekton Pro"
@@ -71,7 +79,8 @@
                                   HorizontalAlignment="Center"
                                   Margin=" 0 40 0 0 "
                                   IsEditable="False"
-                                  ItemsSource=""/>
+                                  SelectedItem="{Binding Path=SelectedSize, Mode=TwoWay}"
+                                  ItemsSource="{Binding Path=Sizes}" />
                     </Grid>
                     <Grid Grid.Row="1">
                         <Button x:Name="OkButton"
@@ -85,30 +94,31 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Bottom"
                                 Margin="0 0 0 40"
-                                Padding="0 10 0 0 "/>
+                                Padding="0 10 0 0 " />
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid Grid.Column="1" x:Name="GraphGrid">
-                
+            <Grid Grid.Column="1"
+                  x:Name="GraphGrid">
+
             </Grid>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="650"/>
-                <ColumnDefinition Width="650"/>
+                <ColumnDefinition Width="650" />
+                <ColumnDefinition Width="650" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="350"/>
-                        <ColumnDefinition Width="150"/>
-                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="350" />
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="150" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <TextBlock Text="Choose two vertices: "
@@ -118,7 +128,7 @@
                                    Background="Transparent"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Left"
-                                   Margin="40 0 0 0"/>
+                                   Margin="40 0 0 0" />
                     </Grid>
                     <Grid Grid.Column="1">
                         <ComboBox x:Name="ChooseFrom"
@@ -128,7 +138,7 @@
                                   Foreground="DarkSlateBlue"
                                   Background="Transparent"
                                   VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"/>
+                                  HorizontalAlignment="Center" />
                     </Grid>
                     <Grid Grid.Column="2">
                         <ComboBox x:Name="ChooseTo"
@@ -138,7 +148,7 @@
                                   Foreground="DarkSlateBlue"
                                   Background="Transparent"
                                   VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"/>
+                                  HorizontalAlignment="Center" />
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1">
@@ -149,15 +159,16 @@
                                Background="Transparent"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left"
-                               Margin="40 0 0 0"/>
+                               Margin="40 0 0 0" />
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="325"/>
-                        <ColumnDefinition Width="325"/>
+                        <ColumnDefinition Width="325" />
+                        <ColumnDefinition Width="325" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <StackPanel VerticalAlignment="Top"
+                                    HorizontalAlignment="Center">
                             <RadioButton x:Name="FloydButton"
                                          Content="FLoyd Algorythm"
                                          FontSize="25"
@@ -165,7 +176,7 @@
                                          Foreground="DarkSlateBlue"
                                          Background="Transparent"
                                          VerticalAlignment="Center"
-                                         HorizontalAlignment="Center"/>
+                                         HorizontalAlignment="Center" />
                             <RadioButton x:Name="DansigButton"
                                          Content="Dansig Algorythm"
                                          FontSize="25"
@@ -173,7 +184,7 @@
                                          Foreground="DarkSlateBlue"
                                          Background="Transparent"
                                          VerticalAlignment="Center"
-                                         HorizontalAlignment="Center"/>
+                                         HorizontalAlignment="Center" />
                         </StackPanel>
                     </Grid>
                     <Grid Grid.Column="1">
@@ -187,15 +198,15 @@
                                 Width="200"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Top"
-                                Padding="0 10 0 0 "/>
+                                Padding="0 10 0 0 " />
                     </Grid>
                 </Grid>
             </Grid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <TextBlock Text="RESULT: "
@@ -204,12 +215,12 @@
                                Foreground="DarkSlateBlue"
                                Background="Transparent"
                                VerticalAlignment="Center"
-                               HorizontalAlignment="Center"/>
+                               HorizontalAlignment="Center" />
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="250"/>
-                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="250" />
+                        <ColumnDefinition Width="400" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <TextBlock Text="Path: "
@@ -218,7 +229,7 @@
                                    Foreground="DarkSlateBlue"
                                    Background="Transparent"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Right"/>
+                                   HorizontalAlignment="Right" />
                     </Grid>
                     <Grid Grid.Column="1">
                         <TextBox x:Name="Path"
@@ -231,13 +242,13 @@
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Left"
                                  Margin="20 0 0 10"
-                                 IsEnabled="False"/>
+                                 IsEnabled="False" />
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="250"/>
-                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="250" />
+                        <ColumnDefinition Width="400" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <TextBlock Text="Length: "
@@ -246,7 +257,7 @@
                                    Foreground="DarkSlateBlue"
                                    Background="Transparent"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Right"/>
+                                   HorizontalAlignment="Right" />
                     </Grid>
                     <Grid Grid.Column="1">
                         <TextBox x:Name="Length"
@@ -259,7 +270,7 @@
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Left"
                                  Margin="20 0 0 10"
-                                 IsEnabled="False"/>
+                                 IsEnabled="False" />
                     </Grid>
                 </Grid>
             </Grid>

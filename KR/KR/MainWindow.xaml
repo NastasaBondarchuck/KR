@@ -58,7 +58,7 @@
                                TargetType="DataGridCell"
                                BasedOn="{StaticResource {x:Type DataGridCell}}">
                             <Setter Property="Background"
-                                    Value="White" />
+                                    Value="#FFF0F5" />
                             <Setter Property="VerticalContentAlignment"
                                     Value="Center" />
                             <Setter Property="MinHeight"
@@ -67,10 +67,8 @@
                                     Value="Center" />
                             <Setter Property="MinWidth"
                                     Value="30" />
-                            <Setter Property="Height"
-                                    Value="30"/>
-                            <Setter Property="Width"
-                                    Value="30"/>
+                            <Setter Property="FontSize"
+                                    Value="20"/>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected"
                                          Value="True">
@@ -86,11 +84,11 @@
                                      ItemsSource2D="{Binding Matrix, UpdateSourceTrigger=PropertyChanged}"
                                      HorizontalAlignment="Center"
                                      VerticalAlignment="Center"
-                                     FontSize="25"
+                                     FontSize="20"
                                      CellStyle="{StaticResource MyDataGridCell}"
-                                     FontFamily="Consolas"
+                                     FontFamily="Tekton Pro"
                                      ColumnHeaderHeight="30"
-                                     RowHeaderWidth="30" />
+                                     RowHeaderWidth="30"/>
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>

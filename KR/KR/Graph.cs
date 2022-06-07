@@ -9,15 +9,17 @@ namespace KR_OP
         private List<GraphVertex> _vertices = new List<GraphVertex>();
         private List<GraphEdge> _edges = new List<GraphEdge>();
         public double[,] AdjMatrix { get; set; }
-        
-        public Graph(double[,] matrix) { AdjMatrix = matrix; }
-        public List<GraphVertex> Vertices
-        {
-            get =>_vertices;
-            private set =>_vertices = value;
+
+        public Graph(double[,] matrix) {
+            AdjMatrix = matrix;
+            SetVertices();
+            SetEdges();
         }
-        public List<GraphEdge> Edges
-        {
+        public List<GraphVertex> Vertices {
+            get => _vertices;
+            private set => _vertices = value;
+        }
+        public List<GraphEdge> Edges {
             get => _edges;
             private set => _edges = value;
         }
@@ -40,9 +42,9 @@ namespace KR_OP
                     _vertices.Add(new GraphVertex(i + 1, x, y));
                 }
             }
-                
+
         }
-        
+
         public void SetEdges()
         {
             _edges = new List<GraphEdge>();

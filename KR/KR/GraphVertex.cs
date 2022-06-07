@@ -1,0 +1,47 @@
+﻿using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Shapes;
+
+namespace KR_OP
+{
+    public class GraphVertex
+    {
+        public int Number { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+        public GraphVertex(int number, int x, int y)
+        {
+            Number = number;
+            X = x;
+            Y = y;
+        }
+        
+        public override string ToString() => Number.ToString();
+
+        public Ellipse DrawVertex()
+        {
+            Ellipse vertex = new Ellipse
+            {
+                Stroke = Brushes.Black,
+                Fill = Brushes.Pink,
+                Width = 20,
+                Height = 20,
+                Name = $"v{Number}",
+            };
+            return vertex;
+        }
+        public TextBlock DrawName(){
+            TextBlock name = new TextBlock
+            {
+                FontFamily = new FontFamily("Tekton Pro"),
+                FontSize = 15,
+                Foreground = Brushes.Black,
+                Background = Brushes.Transparent,
+                Text = $"{Number}",
+            };
+            return name;
+        }
+    }
+}

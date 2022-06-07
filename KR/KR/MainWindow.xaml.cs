@@ -28,18 +28,30 @@ namespace KR
         {
             foreach (var vertex in graph.Vertices)
             {
-                Canvas.SetTop(GraphCanvas, vertex.Y);
-                Canvas.SetLeft(GraphCanvas, vertex.X);
-                GraphCanvas.Children.Add(vertex.DrawVertex());
-                GraphCanvas.Children.Add(vertex.DrawName());
+                var circle = vertex.DrawVertex();
+                Canvas.SetTop(circle, vertex.X);
+                Canvas.SetLeft(circle, vertex.Y);
+                GraphCanvas.Children.Add(circle);
+
+                var name = vertex.DrawName();
+                Canvas.SetTop(name, vertex.X);
+                Canvas.SetLeft(name, vertex.Y);
+                GraphCanvas.Children.Add(name);
             }
             foreach (var edge in graph.Edges)
             {
-                Canvas.SetTop(GraphCanvas, edge.To.Y - 2);
-                Canvas.SetLeft(GraphCanvas, edge.To.X - 2);
-                GraphCanvas.Children.Add(edge.DrawLine());
-                GraphCanvas.Children.Add(edge.DrawArrow());
-                GraphCanvas.Children.Add(edge.DrawWeight());
+                var line = edge.DrawLine();
+                Canvas.SetTop(line, edge.To.Y - 2);
+                Canvas.SetLeft(line, edge.To.X - 2);
+                GraphCanvas.Children.Add(line);
+                var arrow = edge.DrawArrow();
+                Canvas.SetTop(arrow, edge.To.Y - 2);
+                Canvas.SetLeft(arrow, edge.To.X - 2);
+                GraphCanvas.Children.Add(arrow);
+                var weight = edge.DrawWeight();
+                Canvas.SetTop(weight, edge.To.Y - 2);
+                Canvas.SetLeft(weight, edge.To.X - 2);
+                GraphCanvas.Children.Add(weight);
             }
         }
     }

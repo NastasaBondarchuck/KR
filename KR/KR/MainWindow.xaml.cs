@@ -21,7 +21,7 @@ namespace KR
             ViewModel = new MatrixViewModel();
             DataContext = ViewModel;
             Graph graph = new Graph(ViewModel.Matrix);
-            GraphCanvas.Background = Brushes.Magenta;
+            GraphCanvas.Background = Brushes.Transparent;
             DrawGraph(graph);
         }
         public void DrawGraph(Graph graph)
@@ -29,30 +29,36 @@ namespace KR
             foreach (var vertex in graph.Vertices)
             {
                 var circle = vertex.DrawVertex();
-                Canvas.SetTop(circle, vertex.X);
-                Canvas.SetLeft(circle, vertex.Y);
+                Canvas.SetTop(circle, vertex.Y);
+                Canvas.SetLeft(circle, vertex.X);
                 GraphCanvas.Children.Add(circle);
-
+            
                 var name = vertex.DrawName();
-                Canvas.SetTop(name, vertex.X);
-                Canvas.SetLeft(name, vertex.Y);
+                Canvas.SetTop(name, vertex.Y);
+                Canvas.SetLeft(name, vertex.X);
                 GraphCanvas.Children.Add(name);
-            }
+            } 
+            
             foreach (var edge in graph.Edges)
             {
-                var line = edge.DrawLine();
-                Canvas.SetTop(line, edge.To.Y - 2);
-                Canvas.SetLeft(line, edge.To.X - 2);
-                GraphCanvas.Children.Add(line);
+                // var line = edge.DrawLine();
+                // Canvas.SetTop(line, 0);
+                // Canvas.SetLeft(line, 0);
+                // GraphCanvas.Children.Add(line);
                 var arrow = edge.DrawArrow();
-                Canvas.SetTop(arrow, edge.To.Y - 2);
-                Canvas.SetLeft(arrow, edge.To.X - 2);
+                Canvas.SetTop(arrow, 0);
+                Canvas.SetLeft(arrow, 0);
                 GraphCanvas.Children.Add(arrow);
-                var weight = edge.DrawWeight();
-                Canvas.SetTop(weight, edge.To.Y - 2);
-                Canvas.SetLeft(weight, edge.To.X - 2);
-                GraphCanvas.Children.Add(weight);
+                // var weight = edge.DrawWeight();
+                // double x = (edge.From.X + edge.To.X) * (1 / 3);
+                // double y = (edge.From.Y + edge.To.Y) * (1 / 3);
+                // Canvas.SetTop(weight, edge.To.Y  + y);
+                // Canvas.SetLeft(weight, edge.To.X + x);
+                // GraphCanvas.Children.Add(weight);
             }
+            
+            
+            
         }
     }
 }

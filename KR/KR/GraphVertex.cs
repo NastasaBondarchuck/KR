@@ -24,10 +24,10 @@ namespace KR_OP
         {
             Ellipse vertex = new Ellipse
             {
-                Stroke = Brushes.Black,
+                Stroke = Brushes.DarkGray,
                 Fill = Brushes.Pink,
-                Width = 20,
-                Height = 20,
+                Width = 30,
+                Height = 30,
                 Name = $"v{Number}",
             };
             return vertex;
@@ -36,10 +36,13 @@ namespace KR_OP
             TextBlock name = new TextBlock
             {
                 FontFamily = new FontFamily("Tekton Pro"),
-                FontSize = 15,
+                FontSize = 20,
+                Width = 30,
+                Height = 30,
                 Foreground = Brushes.Black,
                 Background = Brushes.Transparent,
                 Text = $"{Number}",
+                Margin = new Thickness(8, 5, 0, 0 ),
             };
             return name;
         }

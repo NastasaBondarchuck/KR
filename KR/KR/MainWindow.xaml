@@ -8,15 +8,14 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=local:MatrixViewModel, IsDesignTimeCreatable=True}"
         Title="MainWindow"
-        Height="850"
+        Height="800"
         Width="1300"
-        MinHeight="850"
+        MinHeight="800"
         MinWidth="1300">
     <Grid Background="#D8BFD8">
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
-            <RowDefinition Height="400" />
-            <RowDefinition Height="300" />
+            <RowDefinition Height="700" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -48,259 +47,247 @@
                 <ColumnDefinition Width="800" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="400" />
-                    <ColumnDefinition Width="100" />
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <Grid.Resources>
-                        <Style x:Key="MyDataGridCell"
-                               TargetType="DataGridCell"
-                               BasedOn="{StaticResource {x:Type DataGridCell}}">
-                            <Setter Property="Background"
-                                    Value="#FFF0F5" />
-                            <Setter Property="VerticalContentAlignment"
-                                    Value="Center" />
-                            <Setter Property="MinHeight"
-                                    Value="30" />
-                            <Setter Property="HorizontalContentAlignment"
-                                    Value="Center" />
-                            <Setter Property="MinWidth"
-                                    Value="30" />
-                            <Setter Property="FontSize"
-                                    Value="20"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsSelected"
-                                         Value="True">
-                                    <Setter Property="Background"
-                                            Value="DarkBlue" />
-                                    <Setter Property="Foreground"
-                                            Value="White" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Grid.Resources>
-                    <dg2d:DataGrid2D x:Name="AdjacencyMatrix"
-                                     ItemsSource2D="{Binding Matrix, UpdateSourceTrigger=PropertyChanged}"
-                                     HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"
-                                     FontSize="20"
-                                     CellStyle="{StaticResource MyDataGridCell}"
-                                     FontFamily="Tekton Pro"
-                                     ColumnHeaderHeight="30"
-                                     RowHeaderWidth="30"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="400"/>
+                    <RowDefinition Height="300"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.Resources>
+                            <Style x:Key="MyDataGridCell"
+                                   TargetType="DataGridCell"
+                                   BasedOn="{StaticResource {x:Type DataGridCell}}">
+                                <Setter Property="Background"
+                                        Value="#FFF0F5" />
+                                <Setter Property="VerticalContentAlignment"
+                                        Value="Center" />
+                                <Setter Property="MinHeight"
+                                        Value="30" />
+                                <Setter Property="HorizontalContentAlignment"
+                                        Value="Center" />
+                                <Setter Property="MinWidth"
+                                        Value="30" />
+                                <Setter Property="FontSize"
+                                        Value="20"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected"
+                                             Value="True">
+                                        <Setter Property="Background"
+                                                Value="DarkBlue" />
+                                        <Setter Property="Foreground"
+                                                Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Resources>
+                        <dg2d:DataGrid2D x:Name="AdjacencyMatrix"
+                                         ItemsSource2D="{Binding Matrix}"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         FontSize="20"
+                                         CellStyle="{StaticResource MyDataGridCell}"
+                                         FontFamily="Tekton Pro"
+                                         ColumnHeaderHeight="30"
+                                         RowHeaderWidth="30"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="200"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <ComboBox x:Name="ChooseSize"
+                                      VerticalContentAlignment="Center"
+                                      Height="50"
+                                      Width="100"
+                                      FontFamily="Tekton Pro"
+                                      FontSize="25"
+                                      Foreground="DarkSlateBlue"
+                                      VerticalAlignment="Top"
+                                      HorizontalAlignment="Center"
+                                      Margin=" 0 40 0 0 "
+                                      IsEditable="False"
+                                      SelectedItem="{Binding Path=SelectedSize, Mode=TwoWay}"
+                                      ItemsSource="{Binding Path=Sizes}" />
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Button x:Name="OkButton"
+                                    Content="OK"
+                                    FontSize="25"
+                                    FontFamily="Tekton Pro"
+                                    Foreground="DarkSlateBlue"
+                                    Background="Lavender"
+                                    Height="50"
+                                    Width="50"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    Margin="0 0 0 40"
+                                    Padding="0 10 0 0 " />
+                        </Grid>
+                    </Grid>
                 </Grid>
-                <Grid Grid.Column="1">
+                <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="200" />
-                        <RowDefinition Height="200" />
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="200"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
-                        <ComboBox x:Name="ChooseSize"
-                                  VerticalContentAlignment="Center"
-                                  Height="50"
-                                  Width="100"
-                                  FontFamily="Tekton Pro"
-                                  FontSize="25"
-                                  Foreground="DarkSlateBlue"
-                                  VerticalAlignment="Top"
-                                  HorizontalAlignment="Center"
-                                  Margin=" 0 40 0 0 "
-                                  IsEditable="False"
-                                  SelectedItem="{Binding Path=SelectedSize, Mode=TwoWay}"
-                                  ItemsSource="{Binding Path=Sizes}" />
+                        <TextBlock Text="Choose the algorythm: "
+                                   FontSize="30"
+                                   FontFamily="Tekton Pro"
+                                   Foreground="DarkSlateBlue"
+                                   Background="Transparent"
+                                   VerticalAlignment="Bottom"
+                                   HorizontalAlignment="Left"
+                                   Margin="40 0 0 0" />
                     </Grid>
                     <Grid Grid.Row="1">
-                        <Button x:Name="OkButton"
-                                Content="OK"
-                                FontSize="25"
-                                FontFamily="Tekton Pro"
-                                Foreground="DarkSlateBlue"
-                                Background="Lavender"
-                                Height="50"
-                                Width="50"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Bottom"
-                                Margin="0 0 0 40"
-                                Padding="0 10 0 0 " />
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <StackPanel VerticalAlignment="Top"
+                                        HorizontalAlignment="Center"
+                                        Margin="0 50 0 0 ">
+                                <RadioButton x:Name="FloydButton"
+                                             Content="FLoyd Algorythm"
+                                             FontSize="25"
+                                             FontFamily="Tekton Pro"
+                                             Foreground="DarkSlateBlue"
+                                             Background="Transparent"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left" />
+                                <RadioButton x:Name="DansigButton"
+                                             Content="Dansig Algorythm"
+                                             FontSize="25"
+                                             FontFamily="Tekton Pro"
+                                             Foreground="DarkSlateBlue"
+                                             Background="Transparent"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Button x:Name="ResultButton"
+                                    Content="Get Result"
+                                    FontSize="25"
+                                    FontFamily="Tekton Pro"
+                                    Foreground="DarkSlateBlue"
+                                    Background="Lavender"
+                                    Height="60"
+                                    Width="200"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    Padding="0 10 0 0 "
+                                    Margin="0 50 0 0 "/>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
             <Grid Grid.Column="1"
                   x:Name="GraphGrid">
-                <Canvas x:Name="GraphCanvas">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="300"/>
+                    <RowDefinition Height="400"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Canvas x:Name="GraphCanvas">
                     
-                </Canvas>
-            </Grid>
-        </Grid>
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="650" />
-                <ColumnDefinition Width="650" />
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="100" />
-                    <RowDefinition Height="100" />
-                    <RowDefinition Height="100" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="350" />
-                        <ColumnDefinition Width="150" />
-                        <ColumnDefinition Width="150" />
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <TextBlock Text="Choose two vertices: "
-                                   FontSize="30"
-                                   FontFamily="Tekton Pro"
-                                   Foreground="DarkSlateBlue"
-                                   Background="Transparent"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Left"
-                                   Margin="40 0 0 0" />
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <ComboBox x:Name="ChooseFrom"
-                                  Height="50"
-                                  Width="100"
-                                  FontFamily="Tekton Pro"
-                                  Foreground="DarkSlateBlue"
-                                  Background="Transparent"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center" />
-                    </Grid>
-                    <Grid Grid.Column="2">
-                        <ComboBox x:Name="ChooseTo"
-                                  Height="50"
-                                  Width="100"
-                                  FontFamily="Tekton Pro"
-                                  Foreground="DarkSlateBlue"
-                                  Background="Transparent"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center" />
-                    </Grid>
+                    </Canvas>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <TextBlock Text="Choose the algorythm: "
-                               FontSize="30"
-                               FontFamily="Tekton Pro"
-                               Foreground="DarkSlateBlue"
-                               Background="Transparent"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left"
-                               Margin="40 0 0 0" />
-                </Grid>
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="325" />
-                        <ColumnDefinition Width="325" />
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <StackPanel VerticalAlignment="Top"
-                                    HorizontalAlignment="Center">
-                            <RadioButton x:Name="FloydButton"
-                                         Content="FLoyd Algorythm"
-                                         FontSize="25"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="350"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="400"/>
+                            <ColumnDefinition Width="400"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <TextBlock Text="RESULT: "
+                                       FontSize="30"
+                                       FontFamily="Tekton Pro"
+                                       Foreground="DarkSlateBlue"
+                                       Background="Transparent"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       Margin="30 0 0 0"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <TextBlock Text="Pathes: "
+                                       FontSize="30"
+                                       FontFamily="Tekton Pro"
+                                       Foreground="DarkSlateBlue"
+                                       Background="Transparent"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       Margin="20 0 0 0 "/>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="400"/>
+                            <ColumnDefinition Width="400"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.Resources>
+                            <Style x:Key="MyDataGridCell"
+                                   TargetType="DataGridCell"
+                                   BasedOn="{StaticResource {x:Type DataGridCell}}">
+                                <Setter Property="Background"
+                                        Value="#FFF0F5" />
+                                <Setter Property="VerticalContentAlignment"
+                                        Value="Center" />
+                                <Setter Property="MinHeight"
+                                        Value="30" />
+                                <Setter Property="HorizontalContentAlignment"
+                                        Value="Center" />
+                                <Setter Property="MinWidth"
+                                        Value="30" />
+                                <Setter Property="FontSize"
+                                        Value="20"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected"
+                                             Value="True">
+                                        <Setter Property="Background"
+                                                Value="DarkBlue" />
+                                        <Setter Property="Foreground"
+                                                Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Resources>
+                        <dg2d:DataGrid2D x:Name="ResultMatrix"
+                                         ItemsSource2D="{Binding Matrix}"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Top"
+                                         FontSize="20"
+                                         CellStyle="{StaticResource MyDataGridCell}"
                                          FontFamily="Tekton Pro"
-                                         Foreground="DarkSlateBlue"
-                                         Background="Transparent"
-                                         VerticalAlignment="Center"
-                                         HorizontalAlignment="Center" />
-                            <RadioButton x:Name="DansigButton"
-                                         Content="Dansig Algorythm"
-                                         FontSize="25"
-                                         FontFamily="Tekton Pro"
-                                         Foreground="DarkSlateBlue"
-                                         Background="Transparent"
-                                         VerticalAlignment="Center"
-                                         HorizontalAlignment="Center" />
-                        </StackPanel>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <Button x:Name="ResultButton"
-                                Content="Get Result"
-                                FontSize="25"
-                                FontFamily="Tekton Pro"
-                                Foreground="DarkSlateBlue"
-                                Background="Lavender"
-                                Height="60"
-                                Width="200"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Top"
-                                Padding="0 10 0 0 " />
-                    </Grid>
-                </Grid>
-            </Grid>
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="100" />
-                    <RowDefinition Height="100" />
-                    <RowDefinition Height="100" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <TextBlock Text="RESULT: "
-                               FontSize="30"
-                               FontFamily="Tekton Pro"
-                               Foreground="DarkSlateBlue"
-                               Background="Transparent"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center" />
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="250" />
-                        <ColumnDefinition Width="400" />
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <TextBlock Text="Path: "
-                                   FontSize="30"
-                                   FontFamily="Tekton Pro"
-                                   Foreground="DarkSlateBlue"
-                                   Background="Transparent"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Right" />
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <TextBox x:Name="Path"
-                                 Height="50"
-                                 Width="200"
-                                 FontSize="30"
-                                 FontFamily="Tekton Pro"
-                                 Foreground="DarkSlateBlue"
-                                 Background="Linen"
-                                 VerticalAlignment="Center"
-                                 HorizontalAlignment="Left"
-                                 Margin="20 0 0 10"
-                                 IsEnabled="False" />
-                    </Grid>
-                </Grid>
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="250" />
-                        <ColumnDefinition Width="400" />
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <TextBlock Text="Length: "
-                                   FontSize="30"
-                                   FontFamily="Tekton Pro"
-                                   Foreground="DarkSlateBlue"
-                                   Background="Transparent"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Right" />
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <TextBox x:Name="Length"
-                                 Height="50"
-                                 Width="200"
-                                 FontSize="30"
-                                 FontFamily="Tekton Pro"
-                                 Foreground="DarkSlateBlue"
-                                 Background="Linen"
-                                 VerticalAlignment="Center"
-                                 HorizontalAlignment="Left"
-                                 Margin="20 0 0 10"
-                                 IsEnabled="False" />
+                                         ColumnHeaderHeight="30"
+                                         RowHeaderWidth="30"
+                                         Margin="30 0 0 0 "/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <TextBlock x:Name="ResultPath"
+                                       Height="300"
+                                       Width="300"
+                                       FontSize="30"
+                                       FontFamily="Tekton Pro"
+                                       Foreground="DarkSlateBlue"
+                                       Background="Linen"
+                                       VerticalAlignment="Top"
+                                       HorizontalAlignment="Left"
+                                       Margin="20 0 0 0"
+                                       IsEnabled="False"/>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>

@@ -29,16 +29,16 @@ namespace KR_OP
             _vertices = new List<GraphVertex>();
             for (int i = 0; i < AdjMatrix.GetLength(0); i++)
             {
-                if (i <= AdjMatrix.GetLength(0) / 2)
+                if (i < AdjMatrix.GetLength(0) / 2)
                 {
                     int x = 100 + 150 * i;
-                    int y = 100;
+                    int y = 50;
                     _vertices.Add(new GraphVertex(i + 1, x, y));
                 }
                 else
                 {
-                    int x = 100 + 150 * i;
-                    int y = 300;
+                    int x = 100 + 150 * (i-AdjMatrix.GetLength(0) / 2);
+                    int y = 200;
                     _vertices.Add(new GraphVertex(i + 1, x, y));
                 }
             }

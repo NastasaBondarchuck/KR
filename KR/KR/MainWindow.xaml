@@ -130,7 +130,9 @@
             </Grid>
             <Grid Grid.Column="1"
                   x:Name="GraphGrid">
-
+                <Canvas x:Name="GraphCanvas">
+                    
+                </Canvas>
             </Grid>
         </Grid>
         <Grid Grid.Row="2">

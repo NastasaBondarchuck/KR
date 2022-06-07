@@ -48,22 +48,22 @@ namespace KR
         }
         private void RefillMatrix()
         {
-            Matrix = new double[,]{
-                { 0, -2, 3, -3},
-                { Double.PositiveInfinity, 0, 2, Double.PositiveInfinity},
-                { Double.PositiveInfinity, Double.PositiveInfinity, 0, -3},
-                { 4, 5, 5, 0}
-            };
-            // Matrix = new double[2, 2];
-            // for (int i = 0; i < 2; i++)
-            // {
-            //     for (int j = 0; j < 2; j++)
-            //     {
-            //         Matrix[i, j] = double.PositiveInfinity;
-            //     }
-            //
-            //     Matrix[i, i] = 0;
-            // }
+            // Matrix = new double[,]{
+            //     { 0, -2, 3, -3},
+            //     { Double.PositiveInfinity, 0, 2, Double.PositiveInfinity},
+            //     { Double.PositiveInfinity, Double.PositiveInfinity, 0, -3},
+            //     { 4, 5, 5, 0}
+            // };
+            Matrix = new double[2, 2];
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    Matrix[i, j] = double.PositiveInfinity;
+                }
+            
+                Matrix[i, i] = 0;
+            }
         }
         private void ChangeMatrixSize(int size)
         {

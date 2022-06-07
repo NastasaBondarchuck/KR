@@ -65,10 +65,13 @@
                                   Height="50"
                                   Width="100"
                                   FontFamily="Tekton Pro"
+                                  FontSize="25"
                                   Foreground="DarkSlateBlue"
                                   VerticalAlignment="Top"
                                   HorizontalAlignment="Center"
-                                  Margin=" 0 40 0 0 "/>
+                                  Margin=" 0 40 0 0 "
+                                  IsEditable="False"
+                                  ItemsSource=""/>
                     </Grid>
                     <Grid Grid.Row="1">
                         <Button x:Name="OkButton"

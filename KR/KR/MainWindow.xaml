@@ -126,7 +126,8 @@
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Bottom"
                                     Margin="0 0 0 40"
-                                    Padding="0 10 0 0 " />
+                                    Padding="0 10 0 0 "
+                                    Click="OkButton_OnClick"/>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -161,7 +162,7 @@
                                              Foreground="DarkSlateBlue"
                                              Background="Transparent"
                                              VerticalAlignment="Center"
-                                             HorizontalAlignment="Left" />
+                                             HorizontalAlignment="Left"/>
                                 <RadioButton x:Name="DansigButton"
                                              Content="Dansig Algorythm"
                                              FontSize="25"
@@ -184,7 +185,8 @@
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Top"
                                     Padding="0 10 0 0 "
-                                    Margin="0 50 0 0 "/>
+                                    Margin="0 50 0 0 "
+                                    Click="ResultButton_OnClick"/>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -265,7 +267,7 @@
                             </Style>
                         </Grid.Resources>
                         <dg2d:DataGrid2D x:Name="ResultMatrix"
-                                         ItemsSource2D="{Binding Matrix}"
+                                         ItemsSource2D="{Binding ResultMatrix}"
                                          HorizontalAlignment="Left"
                                          VerticalAlignment="Top"
                                          FontSize="20"
@@ -276,7 +278,7 @@
                                          Margin="30 0 0 0 "/>
                         </Grid>
                         <Grid Grid.Column="1">
-                            <TextBlock x:Name="ResultPath"
+                            <TextBlock x:Name="ResultPathes"
                                        Height="300"
                                        Width="300"
                                        FontSize="30"

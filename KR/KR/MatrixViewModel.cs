@@ -12,8 +12,10 @@ namespace KR
     {
         private int _selectedSize = 2;
         private double[,] _matrix;
+        private double[,] _resultmatrix;
 
-        public double[,] Matrix {
+        public double[,] Matrix 
+        {
             get {
                 return _matrix;
             }
@@ -24,6 +26,19 @@ namespace KR
             }
         }
 
+        public double[,] ResultMatrix
+        {
+            get {
+                return _resultmatrix;
+            }
+
+            set {
+                _resultmatrix = value;
+                OnPropertyChanged();
+            }
+        }
+
+        
         //Property for sizes list
         public List<int> Sizes => new List<int>() {
             2,3,4,5,6,7,8,9,10
@@ -40,7 +55,10 @@ namespace KR
                 ChangeMatrixSize(value);
             }
         }
-        
+        private void GetResultMatrix(double[,] matrix)
+        {
+            ResultMatrix = matrix;
+        }
         public event PropertyChangedEventHandler PropertyChanged;
         public MatrixViewModel()
         {
@@ -91,6 +109,5 @@ namespace KR
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-        
     }
 }

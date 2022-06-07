@@ -1,38 +1,73 @@
 ﻿using System;
+using System.IO;
 
 namespace KR_OP
 {
     public class Algorythms
     {
-        public static void FloydAlgorythm(double[,] AdjMatrix, int[,] PathMatrix)
+        public static int[,] CreatePathMatrix(double[,] AdjMatrix)
         {
-            for (int k = 0; k < AdjMatrix.GetLength(0); k++)
+            int[,] PathMatrix = new int[AdjMatrix.GetLength(0),AdjMatrix.GetLength(1)];
+            for (int i = 0; i < PathMatrix.GetLength(0); i++)
             {
-                ChooseMin(AdjMatrix, PathMatrix, AdjMatrix.GetLength(0), k);
-                for (int i = 0; i < AdjMatrix.GetLength(0); i++)
+                for (int j = 0; j < PathMatrix.GetLength(1); j++)
                 {
-                    if (AdjMatrix[i,i]<0)
+                    PathMatrix[i, j] = i;
+                }
+            }
+
+            return PathMatrix;
+        }
+        public static double[,] FloydAlgorythm(double[,] AdjMatrix, int[,] PathMatrix)
+        {
+            double[,] ResultMatrix = new double[AdjMatrix.GetLength(0),AdjMatrix.GetLength(1)];
+            for (int i = 0; i < ResultMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < ResultMatrix.GetLength(1); j++)
+                {
+                    ResultMatrix[i, j] = AdjMatrix[i, j];
+                }
+            }
+            
+            for (int k = 0; k < ResultMatrix.GetLength(0); k++)
+            {
+                ChooseMin(ResultMatrix, PathMatrix, ResultMatrix.GetLength(0), k);
+                for (int i = 0; i < ResultMatrix.GetLength(0); i++)
+                {
+                    if (ResultMatrix[i,i]<0)
                     {
                         Console.WriteLine("Negative contour!");
                         break;
                     }
                 }
             }
+
+            return ResultMatrix;
         }
         
-        public static void DansigAlgorythm(double[,] AdjMatrix, int[,] PathMatrix)
+        public static double[,] DansigAlgorythm(double[,] AdjMatrix, int[,] PathMatrix)
         {
-            AdjMatrix[0, 0] = 0;
-            for (int m = 2; m < AdjMatrix.GetLength(0); m++)
+            double[,] ResultMatrix = new double[AdjMatrix.GetLength(0),AdjMatrix.GetLength(1)];
+            for (int i = 0; i < ResultMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < ResultMatrix.GetLength(1); j++)
+                {
+                    ResultMatrix[i, j] = AdjMatrix[i, j];
+                }
+            }
+            
+            ResultMatrix[0, 0] = 0;
+            for (int m = 2; m < ResultMatrix.GetLength(0); m++)
             {
                 for (int k = 0; k < m; k++)
                 {
-                    ChooseMin(AdjMatrix, PathMatrix, m, k);
+                    ChooseMin(ResultMatrix, PathMatrix, m, k);
                 }
-                FindMinMJ(m, AdjMatrix, PathMatrix);
-                FindMinIM(m, AdjMatrix, PathMatrix);
+                FindMinMJ(m, ResultMatrix, PathMatrix);
+                FindMinIM(m, ResultMatrix, PathMatrix);
             }
-            LastStep(AdjMatrix, PathMatrix);
+            LastStep(ResultMatrix, PathMatrix);
+            return ResultMatrix;
         }
         public static void ChooseMin(double[,] AdjMatrix, int[,] PathMatrix, int m, int k)
         {

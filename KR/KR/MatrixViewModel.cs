@@ -26,7 +26,7 @@ namespace KR
 
         //Property for sizes list
         public List<int> Sizes => new List<int>() {
-            2,3,4,5
+            2,3,4,5,6,7,8,9,10
         };
 
         //Property for selected size (updates automaticly)
@@ -55,6 +55,8 @@ namespace KR
                 {
                     Matrix[i, j] = double.PositiveInfinity;
                 }
+
+                Matrix[i, i] = 0;
             }
         }
         private void ChangeMatrixSize(int size)
@@ -72,7 +74,10 @@ namespace KR
             {
                 for (int j = 0; j < size; j++)
                 {
-                    Matrix[i, j] = i < buffer.GetLength(0) && j < buffer.GetLength(1) ? buffer[i, j] : double.PositiveInfinity;
+                    if (i != j)
+                        Matrix[i, j] = i < buffer.GetLength(0) && j < buffer.GetLength(1) ? buffer[i, j] : double.PositiveInfinity;
+                    else
+                        Matrix[i, j] = 0D;
                 }
             }
         }

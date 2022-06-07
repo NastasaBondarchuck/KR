@@ -22,6 +22,7 @@ namespace KR_OP
         
         public static void DansigAlgorythm(double[,] AdjMatrix, int[,] PathMatrix)
         {
+            AdjMatrix[0, 0] = 0;
             for (int m = 2; m < AdjMatrix.GetLength(0); m++)
             {
                 for (int k = 0; k < m; k++)

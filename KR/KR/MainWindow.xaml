@@ -66,11 +66,11 @@
                                 <Setter Property="VerticalContentAlignment"
                                         Value="Center" />
                                 <Setter Property="MinHeight"
-                                        Value="40" />
+                                        Value="30" />
                                 <Setter Property="HorizontalContentAlignment"
                                         Value="Center" />
                                 <Setter Property="MinWidth"
-                                        Value="40" />
+                                        Value="30" />
                                 <Setter Property="FontSize"
                                         Value="20"/>
                                 <Style.Triggers>
@@ -99,7 +99,8 @@
                     </Grid>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="100"/>
                             <RowDefinition Height="200"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
@@ -110,7 +111,7 @@
                                       FontFamily="Tekton Pro"
                                       FontSize="25"
                                       Foreground="DarkSlateBlue"
-                                      VerticalAlignment="Top"
+                                      VerticalAlignment="Center"
                                       HorizontalAlignment="Center"
                                       Margin=" 0 40 0 0 "
                                       IsEditable="False"
@@ -118,6 +119,20 @@
                                       ItemsSource="{Binding Path=Sizes}" />
                         </Grid>
                         <Grid Grid.Row="1">
+                            <Button x:Name="RandomButton"
+                                    Content="Random"
+                                    FontSize="25"
+                                    FontFamily="Tekton Pro"
+                                    Foreground="DarkSlateBlue"
+                                    Background="Lavender"
+                                    Height="50"
+                                    Width="100"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Padding="0 10 0 0 "
+                                    Click="RandomButton_OnClick"/>
+                        </Grid>
+                        <Grid Grid.Row="2">
                             <Button x:Name="OkButton"
                                     Content="OK"
                                     FontSize="25"
@@ -299,7 +314,7 @@
                                      VerticalAlignment="Top"
                                      HorizontalAlignment="Left"
                                      Margin="20 0 0 0"
-                                     IsEnabled="False"
+                                     IsReadOnly="True"
                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                                      TextWrapping="Wrap"/>

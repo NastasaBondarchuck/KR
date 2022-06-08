@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -52,28 +53,17 @@ namespace KR
         public void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
             Button buttonOk = (Button) sender;
+            for (int i = 0; i < ViewModel.Matrix.GetLength(0); i++)
+            {
+                if (ViewModel.Matrix[i, i] != 0)
+                {
+                    ViewModel.Matrix[i, i] = 0D;
+                }
+            }
             Graph graph = new Graph(ViewModel.Matrix);
             GraphCanvas.Background = Brushes.Transparent;
             DrawGraph(graph);
         }
-
-        public void ResultButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            Button resultButton = (Button) sender;
-            int[,] pathMatrix = Algorythms.CreatePathMatrix(ViewModel.Matrix);
-            if (FloydButton.IsChecked.Value)
-            {
-                ViewModel.ResultMatrix = Algorythms.FloydAlgorythm(ViewModel.Matrix, pathMatrix);
-                FillPathes(pathMatrix);
-            }
-            else if (DansigButton.IsChecked.Value)
-            {
-                ViewModel.ResultMatrix = Algorythms.DansigAlgorythm(ViewModel.Matrix, pathMatrix);
-                FillPathes(pathMatrix);
-            }
-            
-        }
-
         public void FillPathes(int[,] PathMatrix)
         {
             ResultPathes.Text = "";
@@ -90,17 +80,80 @@ namespace KR
             }
         }
 
-        public void CheckNegativeContour()
+        public void ResultButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Button resultButton = (Button) sender;
+            int[,] pathMatrix = Algorythms.CreatePathMatrix(ViewModel.Matrix);
+            if (FloydButton.IsChecked.Value)
+            {
+                try
+                {
+                    ViewModel.ResultMatrix = Algorythms.FloydAlgorythm(ViewModel.Matrix, pathMatrix);
+                    FillPathes(pathMatrix);
+                    AddToFile();
+                }
+                catch (Exception exception)
+                {
+                    NegativeContour();
+                }
+            }
+            else if (DansigButton.IsChecked.Value)
+            {
+                try
+                {
+                    ViewModel.ResultMatrix = Algorythms.DansigAlgorythm(ViewModel.Matrix, pathMatrix);
+                    FillPathes(pathMatrix);
+                    AddToFile();
+                }
+                catch (Exception exception)
+                {
+                    NegativeContour();
+                }
+            }
+            else
+            {
+                string messageBoxText = "Choose algorythm, please!";
+                string caption = "Choosing Error";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Information;
+                MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.OK);
+            }
+            
+        }
+        
+        public void NegativeContour()
         {
             string messageBoxText = "Graph has negative contour!\n" +
                                     "Try to change adjacency matrix.";
             string caption = "Negative Contour";
             MessageBoxButton button = MessageBoxButton.OK;
             MessageBoxImage icon = MessageBoxImage.Information;
-            ViewModel.Matrix = ViewModel.RefillMatrix();
             MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.OK);
-            
+            ViewModel.Matrix = ViewModel.RefillMatrix();
+        }
 
+        private void AddToFile()
+        {
+            string fileName = "ResultFile.txt";
+            StreamWriter file = new StreamWriter(fileName, false);
+            file.Write("Result Matrix: \n");
+            for (int i = 0; i < ViewModel.ResultMatrix.GetLength(0) ; i++)
+            {
+                for (int j = 0; j < ViewModel.ResultMatrix.GetLength(1); j++)
+                {
+                    file.Write($"{ViewModel.ResultMatrix[i, j]}\t");
+                }
+                file.Write("\n");
+            }
+            file.Write("Result Pathes: \n");
+            file.Write(ResultPathes.Text);
+            file.Close();
+        }
+
+        private void RandomButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ViewModel.RandomMatrix();
+            DataContext = ViewModel;
         }
     }
 }

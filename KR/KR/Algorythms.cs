@@ -7,6 +7,18 @@ namespace KR_OP
 {
     public class Algorythms
     {
+        private static double[,] CreateResultMatrix(double[,] AdjMatrix)
+        {
+            double[,] ResultMatrix = new double[AdjMatrix.GetLength(0), AdjMatrix.GetLength(1)];
+            for (int i = 0; i < ResultMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < ResultMatrix.GetLength(1); j++)
+                {
+                    ResultMatrix[i, j] = AdjMatrix[i, j];
+                }
+            }
+            return ResultMatrix;
+        }
         public static int[,] CreatePathMatrix(double[,] AdjMatrix)
         {
             int[,] PathMatrix = new int[AdjMatrix.GetLength(0),AdjMatrix.GetLength(1)];
@@ -22,60 +34,30 @@ namespace KR_OP
         }
         public static double[,] FloydAlgorythm(double[,] AdjMatrix, int[,] PathMatrix)
         {
-            // double[,] AdjMatrix = new double[AdjMatrix.GetLength(0),AdjMatrix.GetLength(1)];
-            // for (int i = 0; i < AdjMatrix.GetLength(0); i++)
-            // {
-            //     for (int j = 0; j < AdjMatrix.GetLength(1); j++)
-            //     {
-            //         AdjMatrix[i, j] = AdjMatrix[i, j];
-            //     }
-            // }
-            
-            for (int k = 0; k < AdjMatrix.GetLength(0); k++)
+            double[,] ResultMatrix = CreateResultMatrix(AdjMatrix);
+            for (int k = 0; k < ResultMatrix.GetLength(0); k++)
             {
-                ChooseMin(AdjMatrix, PathMatrix, AdjMatrix.GetLength(0), k);
-                // for (int i = 0; i < AdjMatrix.GetLength(0); i++)
-                // {
-                //     if (AdjMatrix[i,i]<0)
-                //     {
-                //         string messageBoxText = "Graph have negative contour!\n" +
-                //                                 "Try to change adjacency matrix.";
-                //         string caption = "Negative Contour";
-                //         MessageBoxButton button = MessageBoxButton.OK;
-                //         MessageBoxImage icon = MessageBoxImage.Information;
-                //         MessageBoxResult result;
-                //
-                //         result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.None);
-                //     }
-                // }
+                ChooseMin(ResultMatrix, PathMatrix, ResultMatrix.GetLength(0), k);
             }
 
-            return AdjMatrix;
+            return ResultMatrix;
         }
         
         public static double[,] DansigAlgorythm(double[,] AdjMatrix, int[,] PathMatrix)
         {
-            // double[,] AdjMatrix = new double[AdjMatrix.GetLength(0),AdjMatrix.GetLength(1)];
-            // for (int i = 0; i < AdjMatrix.GetLength(0); i++)
-            // {
-            //     for (int j = 0; j < AdjMatrix.GetLength(1); j++)
-            //     {
-            //         AdjMatrix[i, j] = AdjMatrix[i, j];
-            //     }
-            // }
-            
+            double[,] ResultMatrix = CreateResultMatrix(AdjMatrix);
             AdjMatrix[0, 0] = 0;
-            for (int m = 2; m < AdjMatrix.GetLength(0); m++)
+            for (int m = 2; m < ResultMatrix.GetLength(0); m++)
             {
                 for (int k = 0; k < m; k++)
                 {
-                    ChooseMin(AdjMatrix, PathMatrix, m, k);
+                    ChooseMin(ResultMatrix, PathMatrix, m, k);
                 }
-                FindMinMJ(m, AdjMatrix, PathMatrix);
-                FindMinIM(m, AdjMatrix, PathMatrix);
+                FindMinMJ(m, ResultMatrix, PathMatrix);
+                FindMinIM(m, ResultMatrix, PathMatrix);
             }
-            LastStep(AdjMatrix, PathMatrix);
-            return AdjMatrix;
+            LastStep(ResultMatrix, PathMatrix);
+            return ResultMatrix;
         }
         public static void ChooseMin(double[,] AdjMatrix, int[,] PathMatrix, int m, int k)
         {
@@ -91,8 +73,7 @@ namespace KR_OP
 
                     if (AdjMatrix[i, i] < 0)
                     {
-                        MainWindow checkContour = new MainWindow();
-                        checkContour.CheckNegativeContour();
+                        throw new Exception();
                     }
                 }
             }

@@ -81,6 +81,23 @@ namespace KR
 
             return Matrix;
         }
+
+        public void RandomMatrix()
+        {
+            Random rand = new Random();
+            for (int i = 0; i < Matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < Matrix.GetLength(1); j++)
+                {
+                    if (i != j)
+                    {
+                        Matrix[i, j] = rand.Next(-100, 100);
+                        if (Matrix[i, j] < 0) Matrix[i, j] = Double.PositiveInfinity;
+                    }
+                    
+                }
+            }
+        }
         private void ChangeMatrixSize(int size)
         {
             double[,] buffer = new double[Matrix.GetLength(0), Matrix.GetLength(1)];

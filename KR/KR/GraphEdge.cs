@@ -47,7 +47,7 @@ namespace KR_OP
             
             Line line = new Line
             {
-                Stroke = Brushes.Black,
+                Stroke = Brushes.Gray,
                 StrokeThickness = 2,
                 X1 = x1,
                 Y1 = y1,
@@ -58,7 +58,7 @@ namespace KR_OP
  
             line = new Line
             {
-                Stroke = Brushes.Black,
+                Stroke = Brushes.Gray,
                 StrokeThickness = 2,
                 X1 = x2 - (X / d) * 15,
                 Y1 = y2 - (Y / d) * 15,
@@ -69,7 +69,7 @@ namespace KR_OP
  
             line = new Line
             {
-                Stroke = Brushes.Black,
+                Stroke = Brushes.Gray,
                 StrokeThickness = 2,
                 X1 = x2 - (X / d) * 15,
                 Y1 = y2 - (Y / d) * 15,

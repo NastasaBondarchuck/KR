@@ -32,17 +32,21 @@ namespace KR_OP
             };
             return vertex;
         }
-        public TextBlock DrawName(){
-            TextBlock name = new TextBlock
+        public TextBox DrawName(){
+            TextBox name = new TextBox
             {
                 FontFamily = new FontFamily("Tekton Pro"),
-                FontSize = 20,
+                VerticalContentAlignment = VerticalAlignment.Center,
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                IsReadOnly = true,
+                IsEnabled = false,
+                BorderBrush = Brushes.Transparent,
+                FontSize = 15,
                 Width = 30,
                 Height = 30,
-                Foreground = Brushes.Black,
+                Foreground = Brushes.Navy,
                 Background = Brushes.Transparent,
                 Text = $"{Number}",
-                Margin = new Thickness(8, 5, 0, 0 ),
             };
             return name;
         }

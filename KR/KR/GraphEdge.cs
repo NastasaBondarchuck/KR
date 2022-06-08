@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace KR_OP
+namespace KR
 {
     public class GraphEdge
     {

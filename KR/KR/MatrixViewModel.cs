@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KR
 {
@@ -16,9 +12,7 @@ namespace KR
 
         public double[,] Matrix 
         {
-            get {
-                return _matrix;
-            }
+            get => _matrix;
 
             set {
                 _matrix = value;
@@ -28,9 +22,7 @@ namespace KR
 
         public double[,] ResultMatrix
         {
-            get {
-                return _resultmatrix;
-            }
+            get => _resultmatrix;
 
             set {
                 _resultmatrix = value;
@@ -46,9 +38,7 @@ namespace KR
 
         //Property for selected size (updates automaticly)
         public int SelectedSize {
-            get {
-                return _selectedSize;
-            }
+            get => _selectedSize;
             set {
                 _selectedSize = value;
                 OnPropertyChanged();
@@ -80,23 +70,6 @@ namespace KR
             }
 
             return Matrix;
-        }
-
-        public void RandomMatrix()
-        {
-            Random rand = new Random();
-            for (int i = 0; i < Matrix.GetLength(0); i++)
-            {
-                for (int j = 0; j < Matrix.GetLength(1); j++)
-                {
-                    if (i != j)
-                    {
-                        Matrix[i, j] = rand.Next(-100, 100);
-                        if (Matrix[i, j] < 0) Matrix[i, j] = Double.PositiveInfinity;
-                    }
-                    
-                }
-            }
         }
         private void ChangeMatrixSize(int size)
         {

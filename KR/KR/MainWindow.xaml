@@ -7,12 +7,13 @@
         xmlns:dg2d="clr-namespace:DataGrid2DLibrary;assembly=DataGrid2DLibrary"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=local:MatrixViewModel, IsDesignTimeCreatable=True}"
-        Title="MainWindow"
-        Height="800"
-        Width="1300"
-        MinHeight="800"
-        MinWidth="1300">
-    <Grid Background="#D8BFD8">
+        Title="Shortest Path"
+        Height="830"
+        Width="1330"
+        MinHeight="830"
+        MinWidth="1330"
+        Background="#D8BFD8">
+    <Grid Background="#D8BFD8" VerticalAlignment="Center" HorizontalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
             <RowDefinition Height="700" />
@@ -32,13 +33,34 @@
                            HorizontalAlignment="Center" />
             </Grid>
             <Grid Grid.Column="1">
-                <TextBlock Text="Graph Visualization"
-                           FontSize="30"
-                           FontFamily="Tekton Pro"
-                           Foreground="DarkSlateBlue"
-                           Background="Transparent"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="700"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <TextBlock Text="Graph Visualization"
+                               FontSize="30"
+                               FontFamily="Tekton Pro"
+                               Foreground="DarkSlateBlue"
+                               Background="Transparent"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center" />
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Button x:Name="ClearButton"
+                            Content="Clear"
+                            FontSize="25"
+                            FontFamily="Tekton Pro"
+                            Foreground="DarkSlateBlue"
+                            Background="Lavender"
+                            Height="50"
+                            Width="80"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Padding="0 10 0 0 "
+                            Margin=" 0 0 0 20"
+                            Click="ClearButton_OnClick"/>
+                </Grid>
             </Grid>
         </Grid>
         <Grid Grid.Row="1">
@@ -99,8 +121,7 @@
                     </Grid>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="100"/>
-                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="200"/>
                             <RowDefinition Height="200"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
@@ -109,30 +130,17 @@
                                       Height="50"
                                       Width="100"
                                       FontFamily="Tekton Pro"
-                                      FontSize="25"
+                                      FontSize="22"
                                       Foreground="DarkSlateBlue"
-                                      VerticalAlignment="Center"
+                                      VerticalAlignment="Top"
                                       HorizontalAlignment="Center"
+                                      HorizontalContentAlignment="Left"
                                       Margin=" 0 40 0 0 "
                                       IsEditable="False"
                                       SelectedItem="{Binding Path=SelectedSize, Mode=TwoWay}"
                                       ItemsSource="{Binding Path=Sizes}" />
                         </Grid>
                         <Grid Grid.Row="1">
-                            <Button x:Name="RandomButton"
-                                    Content="Random"
-                                    FontSize="25"
-                                    FontFamily="Tekton Pro"
-                                    Foreground="DarkSlateBlue"
-                                    Background="Lavender"
-                                    Height="50"
-                                    Width="100"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Padding="0 10 0 0 "
-                                    Click="RandomButton_OnClick"/>
-                        </Grid>
-                        <Grid Grid.Row="2">
                             <Button x:Name="OkButton"
                                     Content="OK"
                                     FontSize="25"
@@ -155,7 +163,7 @@
                         <RowDefinition Height="200"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
-                        <TextBlock Text="Choose the algorythm: "
+                        <TextBlock Text="Choose the algorithm: "
                                    FontSize="30"
                                    FontFamily="Tekton Pro"
                                    Foreground="DarkSlateBlue"
@@ -174,7 +182,7 @@
                                         HorizontalAlignment="Center"
                                         Margin="0 50 0 0 ">
                                 <RadioButton x:Name="FloydButton"
-                                             Content="FLoyd Algorythm"
+                                             Content="FLoyd Algorithm"
                                              FontSize="25"
                                              FontFamily="Tekton Pro"
                                              Foreground="DarkSlateBlue"
@@ -182,7 +190,7 @@
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Left"/>
                                 <RadioButton x:Name="DansigButton"
-                                             Content="Dansig Algorythm"
+                                             Content="Dansig Algorithm"
                                              FontSize="25"
                                              FontFamily="Tekton Pro"
                                              Foreground="DarkSlateBlue"
@@ -241,7 +249,7 @@
                                        Margin="30 0 0 0"/>
                         </Grid>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="Pathes: "
+                            <TextBlock Text="Paths: "
                                        FontSize="30"
                                        FontFamily="Tekton Pro"
                                        Foreground="DarkSlateBlue"

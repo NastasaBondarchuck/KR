@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Controls;
 
-namespace KR_OP
+namespace KR
 {
     public class Graph
     {
@@ -15,14 +14,8 @@ namespace KR_OP
             SetVertices();
             SetEdges();
         }
-        public List<GraphVertex> Vertices {
-            get => _vertices;
-            private set => _vertices = value;
-        }
-        public List<GraphEdge> Edges {
-            get => _edges;
-            private set => _edges = value;
-        }
+        public List<GraphVertex> Vertices => _vertices;
+        public List<GraphEdge> Edges => _edges;
 
         private void SetVertices()
         {

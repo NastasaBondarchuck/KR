@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Shapes;
-
-using KR_OP;
 
 namespace KR
 {
@@ -52,7 +47,6 @@ namespace KR
 
         public void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Button buttonOk = (Button) sender;
             for (int i = 0; i < ViewModel.Matrix.GetLength(0); i++)
             {
                 if (ViewModel.Matrix[i, i] != 0)
@@ -73,7 +67,7 @@ namespace KR
                 {
                     if (i != j)
                     {
-                        string path = Algorythms.FindPath(PathMatrix, i, j);
+                        string path = Algorithms.FindPath(PathMatrix, i, j);
                         ResultPathes.Text += $"Path from {i + 1} to {j + 1} is: {path}\n";
                     }
                 }
@@ -82,37 +76,42 @@ namespace KR
 
         public void ResultButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Button resultButton = (Button) sender;
-            int[,] pathMatrix = Algorythms.CreatePathMatrix(ViewModel.Matrix);
-            if (FloydButton.IsChecked.Value)
+            int[,] pathMatrix = Algorithms.CreatePathMatrix(ViewModel.Matrix);
+            if (FloydButton.IsChecked != null && FloydButton.IsChecked.Value)
             {
                 try
                 {
-                    ViewModel.ResultMatrix = Algorythms.FloydAlgorythm(ViewModel.Matrix, pathMatrix);
+                    ViewModel.ResultMatrix = Algorithms.FloydAlgorythm(ViewModel.Matrix, pathMatrix);
                     FillPathes(pathMatrix);
                     AddToFile();
+                    ResultButton.IsEnabled = false;
+                    FloydButton.IsEnabled = false;
+                    DansigButton.IsEnabled = false;
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
                     NegativeContour();
                 }
             }
-            else if (DansigButton.IsChecked.Value)
+            else if (DansigButton.IsChecked != null && DansigButton.IsChecked.Value)
             {
                 try
                 {
-                    ViewModel.ResultMatrix = Algorythms.DansigAlgorythm(ViewModel.Matrix, pathMatrix);
+                    ViewModel.ResultMatrix = Algorithms.DansigAlgorythm(ViewModel.Matrix, pathMatrix);
                     FillPathes(pathMatrix);
                     AddToFile();
+                    ResultButton.IsEnabled = false;
+                    FloydButton.IsEnabled = false;
+                    DansigButton.IsEnabled = false;
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
                     NegativeContour();
                 }
             }
             else
             {
-                string messageBoxText = "Choose algorythm, please!";
+                string messageBoxText = "Choose algorithm, please!";
                 string caption = "Choosing Error";
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBoxImage icon = MessageBoxImage.Information;
@@ -130,8 +129,8 @@ namespace KR
             MessageBoxImage icon = MessageBoxImage.Information;
             MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.OK);
             ViewModel.Matrix = ViewModel.RefillMatrix();
+            ViewModel.SelectedSize = 2;
         }
-
         private void AddToFile()
         {
             string fileName = "ResultFile.txt";
@@ -145,15 +144,20 @@ namespace KR
                 }
                 file.Write("\n");
             }
-            file.Write("Result Pathes: \n");
+            file.Write("Result Paths: \n");
             file.Write(ResultPathes.Text);
             file.Close();
         }
-
-        private void RandomButton_OnClick(object sender, RoutedEventArgs e)
+        private void ClearButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ViewModel.RandomMatrix();
-            DataContext = ViewModel;
+            ResultPathes.Text = "Path from __ to __ is: ";
+            ResultButton.IsEnabled = true;
+            ViewModel.Matrix = ViewModel.RefillMatrix();
+            ViewModel.ResultMatrix = new double[1,1];
+            ViewModel.SelectedSize = 2;
+            FloydButton.IsChecked = false;
+            DansigButton.IsChecked = false;
+            GraphCanvas.Children.Clear();
         }
     }
 }

@@ -14,8 +14,7 @@ namespace KR
         private double[,] _matrix;
         private double[,] _resultmatrix;
 
-        public double[,] Matrix 
-        {
+        public double[,] Matrix {
             get {
                 return _matrix;
             }
@@ -26,8 +25,7 @@ namespace KR
             }
         }
 
-        public double[,] ResultMatrix
-        {
+        public double[,] ResultMatrix {
             get {
                 return _resultmatrix;
             }
@@ -38,7 +36,7 @@ namespace KR
             }
         }
 
-        
+
         //Property for sizes list
         public List<int> Sizes => new List<int>() {
             2,3,4,5,6,7,8,9,10
@@ -75,7 +73,7 @@ namespace KR
                 {
                     Matrix[i, j] = double.PositiveInfinity;
                 }
-            
+
                 Matrix[i, i] = 0;
             }
 
@@ -94,9 +92,10 @@ namespace KR
                         Matrix[i, j] = rand.Next(-100, 100);
                         if (Matrix[i, j] < 0) Matrix[i, j] = Double.PositiveInfinity;
                     }
-                    
+
                 }
             }
+            ChangeMatrixSize(SelectedSize);
         }
         private void ChangeMatrixSize(int size)
         {

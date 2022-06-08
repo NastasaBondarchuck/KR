@@ -66,11 +66,11 @@
                                 <Setter Property="VerticalContentAlignment"
                                         Value="Center" />
                                 <Setter Property="MinHeight"
-                                        Value="30" />
+                                        Value="40" />
                                 <Setter Property="HorizontalContentAlignment"
                                         Value="Center" />
                                 <Setter Property="MinWidth"
-                                        Value="30" />
+                                        Value="40" />
                                 <Setter Property="FontSize"
                                         Value="20"/>
                                 <Style.Triggers>
@@ -91,8 +91,11 @@
                                          FontSize="20"
                                          CellStyle="{StaticResource MyDataGridCell}"
                                          FontFamily="Tekton Pro"
-                                         ColumnHeaderHeight="30"
-                                         RowHeaderWidth="30"/>
+                                         ColumnHeaderHeight="0"
+                                         RowHeaderWidth="0"
+                                         Background="#BC8F8F"
+                                         BorderBrush="#BC8F8F"
+                                         BorderThickness="5"/>
                     </Grid>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
@@ -248,18 +251,22 @@
                                 <Setter Property="VerticalContentAlignment"
                                         Value="Center" />
                                 <Setter Property="MinHeight"
-                                        Value="30" />
+                                        Value="40" />
                                 <Setter Property="HorizontalContentAlignment"
                                         Value="Center" />
                                 <Setter Property="MinWidth"
-                                        Value="30" />
+                                        Value="40" />
                                 <Setter Property="FontSize"
                                         Value="20"/>
+                                <Setter Property="IsEditing"
+                                        Value="False"/>
+                                <Setter Property="IsEnabled"
+                                        Value="False"/>
                                 <Style.Triggers>
                                     <Trigger Property="IsSelected"
                                              Value="True">
                                         <Setter Property="Background"
-                                                Value="DarkBlue" />
+                                                Value="DarkBlue"/>
                                         <Setter Property="Foreground"
                                                 Value="White" />
                                     </Trigger>
@@ -273,22 +280,29 @@
                                          FontSize="20"
                                          CellStyle="{StaticResource MyDataGridCell}"
                                          FontFamily="Tekton Pro"
-                                         ColumnHeaderHeight="30"
-                                         RowHeaderWidth="30"
+                                         ColumnHeaderHeight="0"
+                                         RowHeaderWidth="0"
+                                         Background="#BC8F8F"
+                                         BorderBrush="#BC8F8F"
+                                         BorderThickness="5"
                                          Margin="30 0 0 0 "/>
                         </Grid>
                         <Grid Grid.Column="1">
-                            <TextBlock x:Name="ResultPathes"
-                                       Height="300"
-                                       Width="300"
-                                       FontSize="30"
-                                       FontFamily="Tekton Pro"
-                                       Foreground="DarkSlateBlue"
-                                       Background="Linen"
-                                       VerticalAlignment="Top"
-                                       HorizontalAlignment="Left"
-                                       Margin="20 0 0 0"
-                                       IsEnabled="False"/>
+                            <TextBox x:Name="ResultPathes"
+                                     Text="Path from __ to __ is: "
+                                     Height="300"
+                                     Width="300"
+                                     FontSize="15"
+                                     FontFamily="Tekton Pro"
+                                     Foreground="#000080"
+                                     Background="#FFF0F5"
+                                     VerticalAlignment="Top"
+                                     HorizontalAlignment="Left"
+                                     Margin="20 0 0 0"
+                                     IsEnabled="False"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                     TextWrapping="Wrap"/>
                         </Grid>
                     </Grid>
                 </Grid>

@@ -55,16 +55,12 @@ namespace KR
                 ChangeMatrixSize(value);
             }
         }
-        private void GetResultMatrix(double[,] matrix)
-        {
-            ResultMatrix = matrix;
-        }
         public event PropertyChangedEventHandler PropertyChanged;
         public MatrixViewModel()
         {
             RefillMatrix();
         }
-        private void RefillMatrix()
+        public double[,] RefillMatrix()
         {
             // Matrix = new double[,]{
             //     { 0, -2, 3, -3},
@@ -82,6 +78,8 @@ namespace KR
             
                 Matrix[i, i] = 0;
             }
+
+            return Matrix;
         }
         private void ChangeMatrixSize(int size)
         {

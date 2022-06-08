@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -80,10 +81,26 @@ namespace KR
             {
                 for (int j = 0; j < PathMatrix.GetLength(1); j++)
                 {
-                    string path = Algorythms.FindPath(PathMatrix, i, j);
-                    ResultPathes.Text += $"Path from {i+1} to {j+1} is: {path}\n";
+                    if (i != j)
+                    {
+                        string path = Algorythms.FindPath(PathMatrix, i, j);
+                        ResultPathes.Text += $"Path from {i + 1} to {j + 1} is: {path}\n";
+                    }
                 }
             }
+        }
+
+        public void CheckNegativeContour()
+        {
+            string messageBoxText = "Graph has negative contour!\n" +
+                                    "Try to change adjacency matrix.";
+            string caption = "Negative Contour";
+            MessageBoxButton button = MessageBoxButton.OK;
+            MessageBoxImage icon = MessageBoxImage.Information;
+            ViewModel.Matrix = ViewModel.RefillMatrix();
+            MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.OK);
+            
+
         }
     }
 }

@@ -24,7 +24,7 @@ namespace KR_OP
             private set => _edges = value;
         }
 
-        public void SetVertices()
+        private void SetVertices()
         {
             _vertices = new List<GraphVertex>();
             for (int i = 0; i < AdjMatrix.GetLength(0); i++)
@@ -45,7 +45,7 @@ namespace KR_OP
 
         }
 
-        public void SetEdges()
+        private void SetEdges()
         {
             _edges = new List<GraphEdge>();
             for (int i = 0; i < AdjMatrix.GetLength(0); i++)

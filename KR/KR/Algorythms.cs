@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Windows;
+using KR;
 
 namespace KR_OP
 {
@@ -12,7 +14,7 @@ namespace KR_OP
             {
                 for (int j = 0; j < PathMatrix.GetLength(1); j++)
                 {
-                    PathMatrix[i, j] = i;
+                    PathMatrix[i, j] = j;
                 }
             }
 
@@ -20,54 +22,60 @@ namespace KR_OP
         }
         public static double[,] FloydAlgorythm(double[,] AdjMatrix, int[,] PathMatrix)
         {
-            double[,] ResultMatrix = new double[AdjMatrix.GetLength(0),AdjMatrix.GetLength(1)];
-            for (int i = 0; i < ResultMatrix.GetLength(0); i++)
-            {
-                for (int j = 0; j < ResultMatrix.GetLength(1); j++)
-                {
-                    ResultMatrix[i, j] = AdjMatrix[i, j];
-                }
-            }
+            // double[,] AdjMatrix = new double[AdjMatrix.GetLength(0),AdjMatrix.GetLength(1)];
+            // for (int i = 0; i < AdjMatrix.GetLength(0); i++)
+            // {
+            //     for (int j = 0; j < AdjMatrix.GetLength(1); j++)
+            //     {
+            //         AdjMatrix[i, j] = AdjMatrix[i, j];
+            //     }
+            // }
             
-            for (int k = 0; k < ResultMatrix.GetLength(0); k++)
+            for (int k = 0; k < AdjMatrix.GetLength(0); k++)
             {
-                ChooseMin(ResultMatrix, PathMatrix, ResultMatrix.GetLength(0), k);
-                for (int i = 0; i < ResultMatrix.GetLength(0); i++)
-                {
-                    if (ResultMatrix[i,i]<0)
-                    {
-                        Console.WriteLine("Negative contour!");
-                        break;
-                    }
-                }
+                ChooseMin(AdjMatrix, PathMatrix, AdjMatrix.GetLength(0), k);
+                // for (int i = 0; i < AdjMatrix.GetLength(0); i++)
+                // {
+                //     if (AdjMatrix[i,i]<0)
+                //     {
+                //         string messageBoxText = "Graph have negative contour!\n" +
+                //                                 "Try to change adjacency matrix.";
+                //         string caption = "Negative Contour";
+                //         MessageBoxButton button = MessageBoxButton.OK;
+                //         MessageBoxImage icon = MessageBoxImage.Information;
+                //         MessageBoxResult result;
+                //
+                //         result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.None);
+                //     }
+                // }
             }
 
-            return ResultMatrix;
+            return AdjMatrix;
         }
         
         public static double[,] DansigAlgorythm(double[,] AdjMatrix, int[,] PathMatrix)
         {
-            double[,] ResultMatrix = new double[AdjMatrix.GetLength(0),AdjMatrix.GetLength(1)];
-            for (int i = 0; i < ResultMatrix.GetLength(0); i++)
-            {
-                for (int j = 0; j < ResultMatrix.GetLength(1); j++)
-                {
-                    ResultMatrix[i, j] = AdjMatrix[i, j];
-                }
-            }
+            // double[,] AdjMatrix = new double[AdjMatrix.GetLength(0),AdjMatrix.GetLength(1)];
+            // for (int i = 0; i < AdjMatrix.GetLength(0); i++)
+            // {
+            //     for (int j = 0; j < AdjMatrix.GetLength(1); j++)
+            //     {
+            //         AdjMatrix[i, j] = AdjMatrix[i, j];
+            //     }
+            // }
             
-            ResultMatrix[0, 0] = 0;
-            for (int m = 2; m < ResultMatrix.GetLength(0); m++)
+            AdjMatrix[0, 0] = 0;
+            for (int m = 2; m < AdjMatrix.GetLength(0); m++)
             {
                 for (int k = 0; k < m; k++)
                 {
-                    ChooseMin(ResultMatrix, PathMatrix, m, k);
+                    ChooseMin(AdjMatrix, PathMatrix, m, k);
                 }
-                FindMinMJ(m, ResultMatrix, PathMatrix);
-                FindMinIM(m, ResultMatrix, PathMatrix);
+                FindMinMJ(m, AdjMatrix, PathMatrix);
+                FindMinIM(m, AdjMatrix, PathMatrix);
             }
-            LastStep(ResultMatrix, PathMatrix);
-            return ResultMatrix;
+            LastStep(AdjMatrix, PathMatrix);
+            return AdjMatrix;
         }
         public static void ChooseMin(double[,] AdjMatrix, int[,] PathMatrix, int m, int k)
         {
@@ -75,10 +83,16 @@ namespace KR_OP
             {
                 for (int j = 0; j < m; j++)
                 {
-                    if (i!=j && AdjMatrix[i, k] + AdjMatrix[k, j] < AdjMatrix[i, j])
+                    if (AdjMatrix[i, k] + AdjMatrix[k, j] < AdjMatrix[i, j])
                     {
                         AdjMatrix[i, j] = AdjMatrix[i, k] + AdjMatrix[k, j];
                         PathMatrix[i, j] = k;
+                    }
+
+                    if (AdjMatrix[i, i] < 0)
+                    {
+                        MainWindow checkContour = new MainWindow();
+                        checkContour.CheckNegativeContour();
                     }
                 }
             }
@@ -125,22 +139,22 @@ namespace KR_OP
     
         public static string FindPath(int[,] PathMatrix, int From, int To)
         {
-            string path = $"{From}->";
+            string path = $"{From+1}->";
             while (PathMatrix[From, To] != To)
             {
                 int temp1 = PathMatrix[From, To];
                 while (PathMatrix[From, temp1] != temp1)
                 {
                     int temp2 = PathMatrix[From, temp1];
-                    path += $"{PathMatrix[From, temp1]}->";
+                    path += $"{PathMatrix[From, temp1]+1}->";
                     From = temp2;
                     
                 }
-                path += $"{PathMatrix[From, To]}->";
+                path += $"{PathMatrix[From, To]+1}->";
                 From = PathMatrix[PathMatrix[From, To], To];
             }
 
-            path += $"{To}";
+            path += $"{To+1}";
             return path;
         }
     }

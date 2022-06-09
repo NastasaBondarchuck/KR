@@ -15,6 +15,7 @@ namespace KR
         private static double[,] CreateResultMatrix(double[,] adjMatrix)
         {
             double[,] resultMatrix = new double[adjMatrix.GetLength(0), adjMatrix.GetLength(1)];
+            //i, j = indices of result matrix' elements.
             for (int i = 0; i < resultMatrix.GetLength(0); i++)
             {
                 for (int j = 0; j < resultMatrix.GetLength(1); j++)

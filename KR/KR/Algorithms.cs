@@ -30,19 +30,19 @@ namespace KR
             return pathMatrix;
             
         }
-        public static double[,] FloydAlgorythm(double[,] adjMatrix, int[,] pathMatrix)
+        public static double[,] FloydAlgorythm(double[,] adjMatrix, int[,] pathMatrix, ref int iterationCounter)
         {
             double[,] resultMatrix = CreateResultMatrix(adjMatrix);
             for (int k = 0; k < resultMatrix.GetLength(0); k++)
             {
-                ChooseMin(resultMatrix, pathMatrix, resultMatrix.GetLength(0), k);
+                ChooseMin(resultMatrix, pathMatrix, resultMatrix.GetLength(0), k, ref iterationCounter);
             }
 
             return resultMatrix;
         }
         
         
-        public static double[,] DansigAlgorythm(double[,] adjMatrix, int[,] pathMatrix)
+        public static double[,] DansigAlgorythm(double[,] adjMatrix, int[,] pathMatrix,  ref int iterationCounter)
         {
             double[,] resultMatrix = CreateResultMatrix(adjMatrix);
             adjMatrix[0, 0] = 0;
@@ -50,21 +50,22 @@ namespace KR
             {
                 for (int k = 0; k < m; k++)
                 {
-                    ChooseMin(resultMatrix, pathMatrix, m, k);
+                    ChooseMin(resultMatrix, pathMatrix, m, k, ref iterationCounter);
                 }
-                FindMinMj(m, resultMatrix, pathMatrix);
-                FindMinIm(m, resultMatrix, pathMatrix);
+                FindMinMj(m, resultMatrix, pathMatrix, ref iterationCounter);
+                FindMinIm(m, resultMatrix, pathMatrix, ref iterationCounter);
             }
-            LastStep(resultMatrix, pathMatrix);
+            LastStep(resultMatrix, pathMatrix, ref iterationCounter);
             return resultMatrix;
             
         }
-        public static void ChooseMin(double[,] adjMatrix, int[,] pathMatrix, int m, int k)
+        public static void ChooseMin(double[,] adjMatrix, int[,] pathMatrix, int m, int k, ref int iterationCounter)
         {
             for (int i = 0; i < m; i++)
             {
                 for (int j = 0; j < m; j++)
                 {
+                    iterationCounter++;
                     if (adjMatrix[i, k] + adjMatrix[k, j] < adjMatrix[i, j])
                     {
                         adjMatrix[i, j] = adjMatrix[i, k] + adjMatrix[k, j];
@@ -78,20 +79,21 @@ namespace KR
                 }
             }
         }
-        public static void LastStep(double[,] adjMatrix, int[,] pathMatrix)
+        public static void LastStep(double[,] adjMatrix, int[,] pathMatrix, ref int iterationCounter)
         {
             for (int k = 0; k < adjMatrix.GetLength(0); k++)
             {
-                ChooseMin(adjMatrix, pathMatrix, adjMatrix.GetLength(0), k);
+                ChooseMin(adjMatrix, pathMatrix, adjMatrix.GetLength(0), k, ref iterationCounter);
             }
         }
-        public static void FindMinIm(int m, double[,] adjMatrix, int[,] pathMatrix)
+        public static void FindMinIm(int m, double[,] adjMatrix, int[,] pathMatrix, ref int iteratiionCounter)
         {
             for (int i = 0; i < m; i++)
             {
                 double min = adjMatrix[i, m];
                 for (int k = 0; k < m; k++)
                 {
+                    iteratiionCounter++;
                     if (i!=k && adjMatrix[i, k] + adjMatrix[k, m] <= min)
                     {
                         pathMatrix[i, m] = k;
@@ -101,13 +103,14 @@ namespace KR
                 adjMatrix[i, m] = min;
             }
         }
-        public static void FindMinMj(int m, double[,] adjMatrix, int[,] pathMatrix)
+        public static void FindMinMj(int m, double[,] adjMatrix, int[,] pathMatrix, ref int iteratiionCounter)
         {
             for (int j = 0; j < m; j++)
             {
                 double min = adjMatrix[m, j];
                 for (int k = 0; k < m; k++)
                 {
+                    iteratiionCounter++;
                     if (j!=k && adjMatrix[m, k] + adjMatrix[k, j] <= min)
                     {
                         pathMatrix[m, j] = k;
@@ -120,19 +123,19 @@ namespace KR
     
         public static string FindPath(int[,] pathMatrix, int from, int to)
         {
-            string path = $"{@from+1}->";
-            while (pathMatrix[@from, to] != to)
+            string path = $"{from+1}->";
+            while (pathMatrix[from, to] != to)
             {
-                int temp1 = pathMatrix[@from, to];
-                while (pathMatrix[@from, temp1] != temp1)
+                int temp1 = pathMatrix[from, to];
+                while (pathMatrix[from, temp1] != temp1)
                 {
-                    int temp2 = pathMatrix[@from, temp1];
-                    path += $"{pathMatrix[@from, temp1]+1}->";
-                    @from = temp2;
+                    int temp2 = pathMatrix[from, temp1];
+                    path += $"{pathMatrix[from, temp1]+1}->";
+                    from = temp2;
                     
                 }
-                path += $"{pathMatrix[@from, to]+1}->";
-                @from = pathMatrix[pathMatrix[@from, to], to];
+                path += $"{pathMatrix[from, to]+1}->";
+                from = pathMatrix[pathMatrix[from, to], to];
             }
 
             path += $"{to+1}";

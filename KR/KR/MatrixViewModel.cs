@@ -29,14 +29,11 @@ namespace KR
                 OnPropertyChanged();
             }
         }
-
         
-        //Property for sizes list
         public List<int> Sizes => new List<int>() {
             2,3,4,5,6,7,8,9,10
         };
-
-        //Property for selected size (updates automaticly)
+        
         public int SelectedSize {
             get => _selectedSize;
             set {
@@ -52,12 +49,6 @@ namespace KR
         }
         public double[,] RefillMatrix()
         {
-            // Matrix = new double[,]{
-            //     { 0, -2, 3, -3},
-            //     { Double.PositiveInfinity, 0, 2, Double.PositiveInfinity},
-            //     { Double.PositiveInfinity, Double.PositiveInfinity, 0, -3},
-            //     { 4, 5, 5, 0}
-            // };
             Matrix = new double[2, 2];
             for (int i = 0; i < 2; i++)
             {

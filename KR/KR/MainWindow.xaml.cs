@@ -60,7 +60,7 @@ namespace KR
         }
         public void FillPathes(int[,] PathMatrix)
         {
-            ResultPathes.Text = "";
+            Result.Text = "";
             for (int i = 0; i < PathMatrix.GetLength(0); i++)
             {
                 for (int j = 0; j < PathMatrix.GetLength(1); j++)
@@ -68,7 +68,7 @@ namespace KR
                     if (i != j)
                     {
                         string path = Algorithms.FindPath(PathMatrix, i, j);
-                        ResultPathes.Text += $"Path from {i + 1} to {j + 1} is: {path}\n";
+                        Result.Text += $"Path from {i + 1} to {j + 1} is: {path}\n";
                     }
                 }
             }
@@ -81,8 +81,11 @@ namespace KR
             {
                 try
                 {
-                    ViewModel.ResultMatrix = Algorithms.FloydAlgorythm(ViewModel.Matrix, pathMatrix);
+                    int iterationCounter = 0;
+                    ViewModel.ResultMatrix = Algorithms.FloydAlgorythm(ViewModel.Matrix, pathMatrix, ref iterationCounter);
                     FillPathes(pathMatrix);
+                    Result.Text += $"\nNumber of iterations: {iterationCounter}\n" +
+                                   "Algorithm complexity is O(n^3).";
                     AddToFile();
                     ResultButton.IsEnabled = false;
                     FloydButton.IsEnabled = false;
@@ -97,8 +100,11 @@ namespace KR
             {
                 try
                 {
-                    ViewModel.ResultMatrix = Algorithms.DansigAlgorythm(ViewModel.Matrix, pathMatrix);
+                    int iterationCounter = 0;
+                    ViewModel.ResultMatrix = Algorithms.DansigAlgorythm(ViewModel.Matrix, pathMatrix, ref iterationCounter);
                     FillPathes(pathMatrix);
+                    Result.Text += $"\nNumber of iterations: {iterationCounter}\n" +
+                                   "Algorithm complexity is O(n^3).";
                     AddToFile();
                     ResultButton.IsEnabled = false;
                     FloydButton.IsEnabled = false;
@@ -145,18 +151,20 @@ namespace KR
                 file.Write("\n");
             }
             file.Write("Result Paths: \n");
-            file.Write(ResultPathes.Text);
+            file.Write(Result.Text);
             file.Close();
         }
         private void ClearButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ResultPathes.Text = "Path from __ to __ is: ";
+            Result.Text = "Path from __ to __ is: ";
             ResultButton.IsEnabled = true;
             ViewModel.Matrix = ViewModel.RefillMatrix();
             ViewModel.ResultMatrix = new double[1,1];
             ViewModel.SelectedSize = 2;
             FloydButton.IsChecked = false;
             DansigButton.IsChecked = false;
+            FloydButton.IsEnabled = true;
+            DansigButton.IsEnabled = true;
             GraphCanvas.Children.Clear();
         }
     }

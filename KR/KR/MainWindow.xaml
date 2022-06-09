@@ -249,7 +249,7 @@
                                        Margin="30 0 0 0"/>
                         </Grid>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="Paths: "
+                            <TextBlock Text="Paths and analise: "
                                        FontSize="30"
                                        FontFamily="Tekton Pro"
                                        Foreground="DarkSlateBlue"
@@ -311,7 +311,7 @@
                                          Margin="30 0 0 0 "/>
                         </Grid>
                         <Grid Grid.Column="1">
-                            <TextBox x:Name="ResultPathes"
+                            <TextBox x:Name="Result"
                                      Text="Path from __ to __ is: "
                                      Height="300"
                                      Width="300"

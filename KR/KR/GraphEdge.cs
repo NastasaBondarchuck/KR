@@ -5,18 +5,39 @@ using System.Windows.Shapes;
 
 namespace KR
 {
+    /// <summary>
+    /// Class for creating edge of the graph.
+    /// </summary>
     public class GraphEdge
     {
+        /// <summary>
+        /// Property with information about vertex, which is start of the edge.
+        /// </summary>
         public GraphVertex From { get; set; }
+        /// <summary>
+        /// Property with information about vertex. which is end of the edge.
+        /// </summary>
         public GraphVertex To { get; set; }
+        /// <summary>
+        /// Property with weight of the edge.
+        /// </summary>
         public double Weight { get; set; }
+        /// <summary>
+        /// Constructor that creates edge with all necessary attributes.
+        /// </summary>
+        /// <param name="from">Value for setting start-vertex of the edge.</param>
+        /// <param name="to">Value for setting end-vertex of the edge.</param>
+        /// <param name="weight">Value for setting weight of the edge.</param>
         public GraphEdge(GraphVertex from, GraphVertex to, double weight)
         {
             From = from;
             To = to;
             Weight = weight;
         }
-
+        /// <summary>
+        /// Method that creates visual model of arrow between start- and end-vertices with tip contains edge's weight.
+        /// </summary>
+        /// <returns>Visual model of the edge with "Canvas" type.</returns>
         public Canvas DrawEdge ()
         {
             double x1 = From.X + 15;

@@ -7,12 +7,18 @@ using System.Windows.Media;
 namespace KR
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Main class for working with MainWindow's objects.
     /// </summary>
     public partial class MainWindow
     {
+        /// <summary>
+        /// Property that creates and connect matrices from window and from code. 
+        /// </summary>
         public MatrixViewModel ViewModel { get; set; }
 
+        /// <summary>
+        /// Main method that starts programme.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -20,6 +26,10 @@ namespace KR
             DataContext = ViewModel;
             
         }
+        /// <summary>
+        /// Method that draws graph on screen.
+        /// </summary>
+        /// <param name="graph">Object of class Graph.</param>
         public void DrawGraph(Graph graph)
         {
             foreach (var edge in graph.Edges)
@@ -44,7 +54,11 @@ namespace KR
             } 
             
         }
-
+        /// <summary>
+        /// Method that is called, when user clicks a button named "OK".
+        /// </summary>
+        /// <param name="sender">Button "OK" that displays graph with calling method "DrawGraph".</param>
+        /// <param name="e">Contains information about event, in that case - about clicking a button.</param>
         public void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
             for (int i = 0; i < ViewModel.Matrix.GetLength(0); i++)
@@ -58,6 +72,10 @@ namespace KR
             GraphCanvas.Background = Brushes.Transparent;
             DrawGraph(graph);
         }
+        /// <summary>
+        /// Method that fills result textbox with information about all paths from all vertices of graph.
+        /// </summary>
+        /// <param name="PathMatrix">The matrix that contains all vertices are enable from another vertices.</param>
         public void FillPathes(int[,] PathMatrix)
         {
             Result.Text = "";
@@ -73,7 +91,11 @@ namespace KR
                 }
             }
         }
-
+        /// <summary>
+        /// Method that is called, when user clicks a button named "ResultButton".
+        /// </summary>
+        /// <param name="sender">Button "OK" that displays results on screen depending on the chosen algorithm.</param>
+        /// <param name="e">Contains information about event, in that case - about clicking a button.</param>
         public void ResultButton_OnClick(object sender, RoutedEventArgs e)
         {
             int[,] pathMatrix = Algorithms.CreatePathMatrix(ViewModel.Matrix);
@@ -82,7 +104,7 @@ namespace KR
                 try
                 {
                     int iterationCounter = 0;
-                    ViewModel.ResultMatrix = Algorithms.FloydAlgorythm(ViewModel.Matrix, pathMatrix, ref iterationCounter);
+                    ViewModel.ResultMatrix = Algorithms.FloydAlgorithm(ViewModel.Matrix, pathMatrix, ref iterationCounter);
                     FillPathes(pathMatrix);
                     Result.Text += $"\nNumber of iterations: {iterationCounter}\n" +
                                    "Algorithm complexity is O(n^3).";
@@ -125,7 +147,9 @@ namespace KR
             }
             
         }
-        
+        /// <summary>
+        /// Method that displays dialogue window with message about negative contour presence.
+        /// </summary>
         public void NegativeContour()
         {
             string messageBoxText = "Graph has negative contour!\n" +
@@ -137,6 +161,9 @@ namespace KR
             ViewModel.Matrix = ViewModel.RefillMatrix();
             ViewModel.SelectedSize = 2;
         }
+        /// <summary>
+        /// Method that adding results to external file.
+        /// </summary>
         private void AddToFile()
         {
             string fileName = "ResultFile.txt";
@@ -154,6 +181,11 @@ namespace KR
             file.Write(Result.Text);
             file.Close();
         }
+        /// <summary>
+        /// Method that is called, when user clicks a button named "Clear".
+        /// </summary>
+        /// <param name="sender">Button "OK" that clear all input and output elements and give user ability to enter information again.</param>
+        /// <param name="e">Contains information about event, in that case - about clicking a button.</param>
         private void ClearButton_OnClick(object sender, RoutedEventArgs e)
         {
             Result.Text = "Path from __ to __ is: ";

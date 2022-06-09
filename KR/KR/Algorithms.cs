@@ -2,8 +2,16 @@
 
 namespace KR
 {
+    /// <summary>
+    /// Class for running search shortest ways algorithms.
+    /// </summary>
     public static class Algorithms
     {
+        /// <summary>
+        /// Accessory method that creates result matrix by coping elements' values from adjacency matrix.
+        /// </summary>
+        /// <param name="adjMatrix">Adjacency matrix that is filled by user.</param>
+        /// <returns>Result matrix that contains all shortest paths between all vertices with "double[,] type."</returns>
         private static double[,] CreateResultMatrix(double[,] adjMatrix)
         {
             double[,] resultMatrix = new double[adjMatrix.GetLength(0), adjMatrix.GetLength(1)];
@@ -16,6 +24,11 @@ namespace KR
             }
             return resultMatrix;
         }
+        /// <summary>
+        /// Accessory method that creates path matrix with start values those are equal indices of matrix' elements. 
+        /// </summary>
+        /// <param name="adjMatrix">Adjacency matrix that is filled by user. (Using only for check size of path matrix.)</param>
+        /// <returns>Path matrix that contains all vertices are enable from another vertices with "int[,]" type.</returns>
         public static int[,] CreatePathMatrix(double[,] adjMatrix)
         {
             int[,] pathMatrix = new int[adjMatrix.GetLength(0),adjMatrix.GetLength(1)];
@@ -30,7 +43,14 @@ namespace KR
             return pathMatrix;
             
         }
-        public static double[,] FloydAlgorythm(double[,] adjMatrix, int[,] pathMatrix, ref int iterationCounter)
+        /// <summary>
+        /// Method that runs floyd algorithm and changes adjacency and path matrices.
+        /// </summary>
+        /// <param name="adjMatrix">Adjacency matrix that is filled by user.</param>
+        /// <param name="pathMatrix">Matrix that contains all vertices are enable from another vertices.</param>
+        /// <param name="iterationCounter">Counter of iterations of that algorithm.</param>
+        /// <returns>Result matrix with shortest paths' values between all vertices.</returns>
+        public static double[,] FloydAlgorithm(double[,] adjMatrix, int[,] pathMatrix, ref int iterationCounter)
         {
             double[,] resultMatrix = CreateResultMatrix(adjMatrix);
             for (int k = 0; k < resultMatrix.GetLength(0); k++)
@@ -41,7 +61,13 @@ namespace KR
             return resultMatrix;
         }
         
-        
+        /// <summary>
+        /// Method that runs dansig algorithm and changes adjacency and path matrices.
+        /// </summary>
+        /// <param name="adjMatrix">Adjacency matrix that is filled by user.</param>
+        /// <param name="pathMatrix">Matrix that contains all vertices are enable from another vertices.</param>
+        /// <param name="iterationCounter">Counter of iterations of that algorithm.</param>
+        /// <returns>Result matrix with shortest paths' values between all vertices.</returns>
         public static double[,] DansigAlgorythm(double[,] adjMatrix, int[,] pathMatrix,  ref int iterationCounter)
         {
             double[,] resultMatrix = CreateResultMatrix(adjMatrix);
@@ -59,6 +85,16 @@ namespace KR
             return resultMatrix;
             
         }
+        /// <summary>
+        /// Accessory method that chooses and replaces elements of the adjacency matrix to minimal value;
+        /// replaces elements of the path matrix to specific values.
+        /// </summary>
+        /// <param name="adjMatrix">Adjacency matrix that is filled by user.</param>
+        /// <param name="pathMatrix">Matrix that contains all vertices are enable from another vertices.</param>
+        /// <param name="m">Extreme value of indices.</param>
+        /// <param name="k">Intermediate vertex between two vertices.</param>
+        /// <param name="iterationCounter">Counter of iterations of the algorithm.</param>
+        /// <exception cref="Exception">Negative contour exception.</exception>
         public static void ChooseMin(double[,] adjMatrix, int[,] pathMatrix, int m, int k, ref int iterationCounter)
         {
             for (int i = 0; i < m; i++)
@@ -79,6 +115,13 @@ namespace KR
                 }
             }
         }
+        /// <summary>
+        /// Accessor method that runs last step of dansig algorithm
+        /// with enumeration of all vertices same with floyd algorithm.
+        /// </summary>
+        /// <param name="adjMatrix">Adjacency matrix that is filled by user.</param>
+        /// <param name="pathMatrix">Matrix that contains all vertices are enable from another vertices.</param>
+        /// <param name="iterationCounter">Counter of iterations of the algorithm.</param>
         public static void LastStep(double[,] adjMatrix, int[,] pathMatrix, ref int iterationCounter)
         {
             for (int k = 0; k < adjMatrix.GetLength(0); k++)
@@ -86,6 +129,13 @@ namespace KR
                 ChooseMin(adjMatrix, pathMatrix, adjMatrix.GetLength(0), k, ref iterationCounter);
             }
         }
+        /// <summary>
+        /// Accessor method that finds minimal value and replace specific element's value to that minimum, while j=m.
+        /// </summary>
+        /// <param name="m">Extreme value of indices.</param>
+        /// <param name="adjMatrix">Adjacency matrix that is filled by user.</param>
+        /// <param name="pathMatrix">Matrix that contains all vertices are enable from another vertices.</param>
+        /// <param name="iteratiionCounter">Counter of iterations of the algorithm.</param>
         public static void FindMinIm(int m, double[,] adjMatrix, int[,] pathMatrix, ref int iteratiionCounter)
         {
             for (int i = 0; i < m; i++)
@@ -103,6 +153,13 @@ namespace KR
                 adjMatrix[i, m] = min;
             }
         }
+        /// <summary>
+        /// Accessor method that finds minimal value and replace specific element's value to that minimum, while i=m.
+        /// </summary>
+        /// <param name="m">Extreme value of indices.</param>
+        /// <param name="adjMatrix">Adjacency matrix that is filled by user.</param>
+        /// <param name="pathMatrix">Matrix that contains all vertices are enable from another vertices.</param>
+        /// <param name="iteratiionCounter">Counter of iterations of the algorithm.</param>
         public static void FindMinMj(int m, double[,] adjMatrix, int[,] pathMatrix, ref int iteratiionCounter)
         {
             for (int j = 0; j < m; j++)
@@ -120,7 +177,13 @@ namespace KR
                 adjMatrix[m, j] = min;
             }
         }
-    
+        /// <summary>
+        /// Method that find path between two vertices.
+        /// </summary>
+        /// <param name="pathMatrix">Matrix that contains all vertices are enable from another vertices.</param>
+        /// <param name="from">Name (or number) of start-vertex.</param>
+        /// <param name="to">Name (or number) of end-vertex.</param>
+        /// <returns>Path between two vertices in format "start->middle...->middle->end" with "string" type.</returns>
         public static string FindPath(int[,] pathMatrix, int from, int to)
         {
             string path = $"{from+1}->";

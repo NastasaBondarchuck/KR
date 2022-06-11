@@ -23,7 +23,7 @@ namespace KR
         private double[,] _resultmatrix;
 
         /// <summary>
-        /// Property with creating and changing adjacency matrix.
+        /// Property for creating and changing adjacency matrix.
         /// </summary>
         public double[,] Matrix 
         {
@@ -35,7 +35,7 @@ namespace KR
             }
         }
         /// <summary>
-        /// Property with creating and changing result matrix.
+        /// Property for creating and changing result matrix.
         /// </summary>
         public double[,] ResultMatrix
         {
@@ -80,6 +80,7 @@ namespace KR
         /// <returns>Adjacency matrix with default settings with "double[,]" type.</returns>
         public double[,] RefillMatrix()
         {
+            // i, j - indices of matrix' elements.
             Matrix = new double[2, 2];
             for (int i = 0; i < 2; i++)
             {
@@ -99,6 +100,8 @@ namespace KR
         /// <param name="size">Selected by user size.</param>
         private void ChangeMatrixSize(int size)
         {
+            // buffer - temporary storage for matrix' elements;
+            // , j - indices of matrix' elements.
             double[,] buffer = new double[Matrix.GetLength(0), Matrix.GetLength(1)];
             for (int i = 0; i < Matrix.GetLength(0); i++)
             {

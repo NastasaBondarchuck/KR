@@ -32,6 +32,10 @@ namespace KR
         /// <param name="graph">Object of class Graph.</param>
         public void DrawGraph(Graph graph)
         {
+            // arrow - visual model of edge between two vertices;
+            // circle - visual model of vertex;
+            // name - visual model of vertex' name.
+            
             foreach (var edge in graph.Edges)
             {
                 var arrow = edge.DrawEdge();
@@ -39,7 +43,6 @@ namespace KR
                 Canvas.SetLeft(arrow, 0);
                 GraphCanvas.Children.Add(arrow);
             }
-            
             foreach (var vertex in graph.Vertices)
             {
                 var circle = vertex.DrawVertex();
@@ -53,14 +56,17 @@ namespace KR
                 GraphCanvas.Children.Add(name);
             } 
             
+            
         }
         /// <summary>
         /// Method that is called, when user clicks a button named "OK".
         /// </summary>
-        /// <param name="sender">Button "OK" that displays graph with calling method "DrawGraph".</param>
+        /// <param name="sender">Button "OK" that check input information and displays graph with calling method "DrawGraph".</param>
         /// <param name="e">Contains information about event, in that case - about clicking a button.</param>
         public void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
+            // i - index of adjacency matrix' elements;
+            // graph - object of class Graph.
             for (int i = 0; i < ViewModel.Matrix.GetLength(0); i++)
             {
                 if (ViewModel.Matrix[i, i] != 0)
@@ -75,17 +81,19 @@ namespace KR
         /// <summary>
         /// Method that fills result textbox with information about all paths from all vertices of graph.
         /// </summary>
-        /// <param name="PathMatrix">The matrix that contains all vertices are enable from another vertices.</param>
-        public void FillPathes(int[,] PathMatrix)
+        /// <param name="pathMatrix">The matrix that contains all vertices are enable from another vertices.</param>
+        public void FillPathes(int[,] pathMatrix, double[,] adjMatrix)
         {
+            // i, j - indices of path matrix' elements;
+            // path - intermediate variable to save path between two vertices. 
             Result.Text = "";
-            for (int i = 0; i < PathMatrix.GetLength(0); i++)
+            for (int i = 0; i < pathMatrix.GetLength(0); i++)
             {
-                for (int j = 0; j < PathMatrix.GetLength(1); j++)
+                for (int j = 0; j < pathMatrix.GetLength(1); j++)
                 {
                     if (i != j)
                     {
-                        string path = Algorithms.FindPath(PathMatrix, i, j);
+                        string path = Algorithms.FindPath(pathMatrix, adjMatrix, i, j);
                         Result.Text += $"Path from {i + 1} to {j + 1} is: {path}\n";
                     }
                 }
@@ -94,10 +102,16 @@ namespace KR
         /// <summary>
         /// Method that is called, when user clicks a button named "ResultButton".
         /// </summary>
-        /// <param name="sender">Button "OK" that displays results on screen depending on the chosen algorithm.</param>
+        /// <param name="sender">Button "OK" that check presence of negative contour in graph and
+        /// displays results on screen depending on the chosen algorithm.</param>
         /// <param name="e">Contains information about event, in that case - about clicking a button.</param>
         public void ResultButton_OnClick(object sender, RoutedEventArgs e)
         {
+            // iterationCounter - variable that contains current number of iterations;
+            // messageBoxText - variable that contains messageBox' content;
+            // caption - variable that contains messageBox' caption;
+            // button - variable that contains type of button-element of messageBox; 
+            // icon - variable that contains type of image-element of messageBox.
             int[,] pathMatrix = Algorithms.CreatePathMatrix(ViewModel.Matrix);
             if (FloydButton.IsChecked != null && FloydButton.IsChecked.Value)
             {
@@ -105,7 +119,7 @@ namespace KR
                 {
                     int iterationCounter = 0;
                     ViewModel.ResultMatrix = Algorithms.FloydAlgorithm(ViewModel.Matrix, pathMatrix, ref iterationCounter);
-                    FillPathes(pathMatrix);
+                    FillPathes(pathMatrix, ViewModel.ResultMatrix);
                     Result.Text += $"\nNumber of iterations: {iterationCounter}\n" +
                                    "Algorithm complexity is O(n^3).";
                     AddToFile();
@@ -124,7 +138,7 @@ namespace KR
                 {
                     int iterationCounter = 0;
                     ViewModel.ResultMatrix = Algorithms.DansigAlgorythm(ViewModel.Matrix, pathMatrix, ref iterationCounter);
-                    FillPathes(pathMatrix);
+                    FillPathes(pathMatrix, ViewModel.ResultMatrix);
                     Result.Text += $"\nNumber of iterations: {iterationCounter}\n" +
                                    "Algorithm complexity is O(n^3).";
                     AddToFile();
@@ -152,6 +166,10 @@ namespace KR
         /// </summary>
         public void NegativeContour()
         {
+            // messageBoxText - variable that contains messageBox' content;
+            // caption - variable that contains messageBox' caption;
+            // button - variable that contains type of button-element of messageBox; 
+            // icon - variable that contains type of image-element of messageBox.   
             string messageBoxText = "Graph has negative contour!\n" +
                                     "Try to change adjacency matrix.";
             string caption = "Negative Contour";
@@ -166,6 +184,8 @@ namespace KR
         /// </summary>
         private void AddToFile()
         {
+            // fileName - path to external file;
+            // file - variable for editing external file.
             string fileName = "ResultFile.txt";
             StreamWriter file = new StreamWriter(fileName, false);
             file.Write("Result Matrix: \n");

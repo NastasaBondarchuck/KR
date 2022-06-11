@@ -43,10 +43,11 @@ namespace KR
         /// </summary>
         private void SetVertices()
         {
+            // i - index of adjacency matrix' elements;
+            // x, y - coordinates of vertex.
             _vertices = new List<GraphVertex>();
             for (int i = 0; i < AdjMatrix.GetLength(0); i++)
             {
-                
                 if (i < AdjMatrix.GetLength(0) / 2)
                 {
                     int x = 100 + 150 * i;
@@ -67,6 +68,7 @@ namespace KR
         /// </summary>
         private void SetEdges()
         {
+            // i, j - indices of result matrix' elements.
             _edges = new List<GraphEdge>();
             for (int i = 0; i < AdjMatrix.GetLength(0); i++)
             {

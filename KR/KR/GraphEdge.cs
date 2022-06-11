@@ -11,15 +11,15 @@ namespace KR
     public class GraphEdge
     {
         /// <summary>
-        /// Property with information about vertex, which is start of the edge.
+        /// Property for setting information about vertex, which is start of the edge.
         /// </summary>
         public GraphVertex From { get; set; }
         /// <summary>
-        /// Property with information about vertex. which is end of the edge.
+        /// Property for setting information about vertex. which is end of the edge.
         /// </summary>
         public GraphVertex To { get; set; }
         /// <summary>
-        /// Property with weight of the edge.
+        /// Property for setting weight of the edge.
         /// </summary>
         public double Weight { get; set; }
         /// <summary>
@@ -40,19 +40,29 @@ namespace KR
         /// <returns>Visual model of the edge with "Canvas" type.</returns>
         public Canvas DrawEdge ()
         {
+            // x1, y1 - start coordinates of central edge's line;
+            // x2, y2 - end coordinates of central edge's line;
+            // X, Y - differences between start and end coordinates;
+            // d - length of central edge's line;
+            // X3, Y3 - coordinates of dot on the central line that is extreme length of arrow's lines;
+            // Xp, Yp - inverted coordinates those set direction of arrow's lines;
+            // X4, Y4 - coordinates of end of the left arrow's line;
+            // X5, Y5 - coordinates of end of the right arrow's line;
+            // line - main object of the edge;
+            // weight - tooltip with the value of edge's weight;
+            // tip - circle that is the box for tooltip reaction.
             double x1 = From.X + 15;
             double x2 = To.X + 15;
             double y1 = From.Y + 15;
             double y2 = To.Y + 15;
-            
-            double d = Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2));
- 
             double X = x2 - x1;
             double Y = y2 - y1;
- 
+            
+            double d = Math.Sqrt(Math.Pow(X, 2) + Math.Pow(Y, 2));
+            
             double X3 = x2 - (X / d) * 30;
             double Y3 = y2 - (Y / d) * 30;
- 
+
             double Xp = y2 - y1;
             double Yp = x1 - x2;
  
@@ -106,7 +116,6 @@ namespace KR
                 Content = $"{Weight}",
                 StaysOpen = true,
             };
-            
             Ellipse tip = new Ellipse()
             {
                 Height = 20,

@@ -17,7 +17,7 @@ namespace KR
         public MatrixViewModel ViewModel { get; set; }
 
         /// <summary>
-        /// Main method that starts programme.
+        /// Constructor that starts programme.
         /// </summary>
         public MainWindow()
         {
@@ -78,10 +78,12 @@ namespace KR
             GraphCanvas.Background = Brushes.Transparent;
             DrawGraph(graph);
         }
+
         /// <summary>
         /// Method that fills result textbox with information about all paths from all vertices of graph.
         /// </summary>
         /// <param name="pathMatrix">The matrix that contains all vertices are enable from another vertices.</param>
+        /// <param name="adjMatrix">Adjacency matrix with edges' weights.</param>
         public void FillPathes(int[,] pathMatrix, double[,] adjMatrix)
         {
             // i, j - indices of path matrix' elements;
